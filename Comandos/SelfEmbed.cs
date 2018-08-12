@@ -22,7 +22,6 @@ namespace Wall_E.Comandos
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             embed.WithColor(cor)
                 .WithDescription(embedpessoa)
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
             await ctx.RespondAsync(embed: embed);
         }
     }
