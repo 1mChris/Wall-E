@@ -21,7 +21,7 @@ namespace Wall_E.Comandos
             DiscordColor cor;
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             embed.WithColor(cor)
-                .WithDescription(embedpessoa)
+                .WithDescription(embedpessoa);
             await ctx.RespondAsync(embed: embed);
         }
     }
