@@ -7,7 +7,7 @@ A história desse bot é meio louca, a criação dele foi minha **(@[UBGE] Luiz#
 
 Dai eu conheci um corno, ou um calaleo de uma pessoa chamado **(@Paulo#6456)** que quem me aprensentou o maravilhoso C#, onde aprendi e continuo aprendendo coisas novas com essa linguagem maravilhosa, aproveitei e transcrevi o Wall-E para C# onde o bot está renovado e flui muito bem, C# for life.
 
-O Wall-E não está 100% finalizado, então ainda eu tenho muita coisa para consertar e dar umas otimizações, assim ele fica N o i c e, e vocês vão acompanhar as mudanças e otimizações aqui no GitHub.
+O Wall-E não está 100% finalizado, então ainda eu tenho muita coisa para consertar e dar umas otimizações, assim ele ficará *N o i c e*, e vocês vão acompanhar as mudanças e otimizações aqui no GitHub.
 
 #C#
 
