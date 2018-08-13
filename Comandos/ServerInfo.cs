@@ -22,7 +22,8 @@ namespace Wall_E.Comandos
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             DiscordUser self = ctx.Member;
             embed.WithAuthor($"Informações do servidor {servidor.Name}")
-                .WithDescription($"Região: {servidor.RegionId}\nCriador: {servidor.Owner}\nVerificação: {servidor.VerificationLevel}\nID: {servidor.Id}\nTotal de membros: {servidor.MemberCount}\nNível de Autenticação multi-fator: {servidor.MfaLevel}\nQuantidade de cargos: {servidor.Roles.Count}\nQuantidade de canais: {servidor.Channels.Count}\nQuantidade de emojis: {servidor.Emojis.Count}")
+                .AddField("🗺️ Região:", $"{servidor.RegionId}")
+                .AddField("👑 Criador:", $"{servidor.Owner.Mention}")
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
             await ctx.RespondAsync(embed: embed);
         }
