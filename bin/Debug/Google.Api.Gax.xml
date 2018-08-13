@@ -1063,7 +1063,12 @@
             <param name="metadataJson">The full JSON string retrieved from the metadata server. Must not be <c>null</c>.</param>
             <param name="projectId">The project ID. Must not be <c>null</c>.</param>
             <param name="instanceId">The instance ID. Must not be <c>null</c>.</param>
-            <param name="zoneName">The zone name. Must not be <c>null</c>.</param>
+            <param name="zoneName">The zone name. Must not be <c>null</c>.
+            If this value is in the format <code>projects/&lt;project-number&gt;/zones/&lt;zone-name&gt;</code>
+            then <see cref="P:Google.Api.Gax.GcePlatformDetails.Location"/> will return the <code>&lt;zone-name&gt;</code> part of this value.
+            If not, <see cref="P:Google.Api.Gax.GcePlatformDetails.Location"/> will throw <see cref="T:System.InvalidOperationException"/>.
+            If this value has been retrived from Google Compute Engine, the it's format will be the one
+            described above.</param>
         </member>
         <member name="P:Google.Api.Gax.GcePlatformDetails.MetadataJson">
             <summary>
@@ -1082,7 +1087,18 @@
         </member>
         <member name="P:Google.Api.Gax.GcePlatformDetails.ZoneName">
             <summary>
+            The zone where this GCE instance is running.
+            This will be in the format <code>projects/&lt;project-number&gt;/zones/&lt;zone-name&gt;</code>
+            id the value has been retrieved from Google Compute Engine.
+            </summary>
+        </member>
+        <member name="P:Google.Api.Gax.GcePlatformDetails.Location">
+            <summary>
             The zone name where this GCE instance is running.
+            If <see cref="P:Google.Api.Gax.GcePlatformDetails.ZoneName"/> is in the format <code>projects/&lt;project-number&gt;/zones/&lt;zone-name&gt;</code>
+            this value will be the <code>&lt;zone-name&gt;</code> part in <see cref="P:Google.Api.Gax.GcePlatformDetails.ZoneName"/>.
+            If <see cref="P:Google.Api.Gax.GcePlatformDetails.ZoneName"/> is in a different format then this getting the value of this property will
+            throw <see cref="T:System.InvalidOperationException"/>.
             </summary>
         </member>
         <member name="M:Google.Api.Gax.GcePlatformDetails.ToString">
@@ -1222,6 +1238,8 @@
         <member name="P:Google.Api.Gax.GkePlatformDetails.Location">
             <summary>
             The cluster location, which is visible in the Google Cloud Platform Console.
+            This is equivalent to the value of the <code>&lt;zone-name&gt;</code> part in
+            <see cref="P:Google.Api.Gax.GkePlatformDetails.Zone"/>
             </summary>
         </member>
         <member name="P:Google.Api.Gax.GkePlatformDetails.HostName">
@@ -1237,6 +1255,7 @@
         <member name="P:Google.Api.Gax.GkePlatformDetails.Zone">
             <summary>
             The GCE zone in which the instance is running.
+            This is in the format <code>projects/&lt;project-number&gt;/zones/&lt;zone-name&gt;</code>.
             </summary>
         </member>
         <member name="P:Google.Api.Gax.GkePlatformDetails.NamespaceId">
@@ -1978,7 +1997,7 @@
             Appends the given name/version string to the list.
             </summary>
             <param name="name">The name. Must not be null or empty, or contain a space or a slash.</param>
-            <param name="version">The version. Must not be null or empty, or contain a space or a slash.</param>
+            <param name="version">The version. Must not be null, or contain a space or a slash.</param>
         </member>
         <member name="M:Google.Api.Gax.VersionHeaderBuilder.AppendAssemblyVersion(System.String,System.Type)">
             <summary>

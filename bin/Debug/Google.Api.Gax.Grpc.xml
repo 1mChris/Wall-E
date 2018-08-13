@@ -1212,5 +1212,12 @@
             In production code generally leave this unset to use the <see cref="T:Google.Api.Gax.SystemScheduler"/>.
             </remarks>
         </member>
+        <member name="P:Google.Api.Gax.Grpc.ServiceSettingsBase.Interceptor">
+            <summary>
+            An optional gRPC interceptor to perform arbitrary interception tasks (such as logging) on gRPC calls.
+            Note that this property is not used by code generated before August 2nd 2018: only packages created
+            on or after that date are aware of this property.
+            </summary>
+        </member>
     </members>
 </doc>

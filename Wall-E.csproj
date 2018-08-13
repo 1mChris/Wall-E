@@ -282,13 +282,13 @@
     <Compile Include="Comandos\AddTageRemoveTagCargos.cs" />
     <Compile Include="Comandos\FoxholeEsquadrõesEntrareSair.cs" />
     <Compile Include="Comandos\Grupos.cs" />
-    <Compile Include="Comandos\InformaçõesMembro.cs" />
     <Compile Include="Comandos\ManipulaçãodeImagens.cs" />
     <Compile Include="Comandos\Música\Extras.cs" />
     <Compile Include="Comandos\Música\Música.cs" />
     <Compile Include="Comandos\Música\PesquisanoYoutube.cs" />
     <Compile Include="Comandos\NúmeroAleatório.cs" />
     <Compile Include="Comandos\SelfEmbed.cs" />
+    <Compile Include="Comandos\ServerInfo.cs" />
     <Compile Include="Comandos\WhatsApp.cs" />
     <Compile Include="Utilidades\CorDiscordEmbed.cs" />
     <Compile Include="Bot\Valores.cs" />

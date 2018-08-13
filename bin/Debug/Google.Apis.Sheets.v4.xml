@@ -97,9 +97,6 @@
         <member name="F:Google.Apis.Sheets.v4.SheetsBaseServiceRequest`1.AltEnum.Proto">
             <summary>Responses with Content-Type of application/x-protobuf</summary>
         </member>
-        <member name="P:Google.Apis.Sheets.v4.SheetsBaseServiceRequest`1.BearerToken">
-            <summary>OAuth bearer token.</summary>
-        </member>
         <member name="P:Google.Apis.Sheets.v4.SheetsBaseServiceRequest`1.Callback">
             <summary>JSONP</summary>
         </member>
@@ -112,10 +109,6 @@
         </member>
         <member name="P:Google.Apis.Sheets.v4.SheetsBaseServiceRequest`1.OauthToken">
             <summary>OAuth 2.0 token for the current user.</summary>
-        </member>
-        <member name="P:Google.Apis.Sheets.v4.SheetsBaseServiceRequest`1.Pp">
-            <summary>Pretty-print response.</summary>
-            [default: true]
         </member>
         <member name="P:Google.Apis.Sheets.v4.SheetsBaseServiceRequest`1.PrettyPrint">
             <summary>Returns response with indentations and line breaks.</summary>
@@ -325,6 +318,20 @@
             <summary>The A1 notation of a range to search for a logical table of data. Values will be appended
             after the last row of the table.</summary>
         </member>
+        <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.ResponseDateTimeRenderOption">
+            <summary>Determines how dates, times, and durations in the response should be rendered. This is
+            ignored if response_value_render_option is FORMATTED_VALUE. The default dateTime render option is
+            [DateTimeRenderOption.SERIAL_NUMBER].</summary>
+        </member>
+        <member name="T:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.ResponseDateTimeRenderOptionEnum">
+            <summary>Determines how dates, times, and durations in the response should be rendered. This is
+            ignored if response_value_render_option is FORMATTED_VALUE. The default dateTime render option is
+            [DateTimeRenderOption.SERIAL_NUMBER].</summary>
+        </member>
+        <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.IncludeValuesInResponse">
+            <summary>Determines if the update response should include the values of the cells that were
+            appended. By default, responses do not include the updated values.</summary>
+        </member>
         <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.ResponseValueRenderOption">
             <summary>Determines how values in the response should be rendered. The default render option is
             ValueRenderOption.FORMATTED_VALUE.</summary>
@@ -344,20 +351,6 @@
         </member>
         <member name="T:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum">
             <summary>How the input data should be interpreted.</summary>
-        </member>
-        <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.ResponseDateTimeRenderOption">
-            <summary>Determines how dates, times, and durations in the response should be rendered. This is
-            ignored if response_value_render_option is FORMATTED_VALUE. The default dateTime render option is
-            [DateTimeRenderOption.SERIAL_NUMBER].</summary>
-        </member>
-        <member name="T:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.ResponseDateTimeRenderOptionEnum">
-            <summary>Determines how dates, times, and durations in the response should be rendered. This is
-            ignored if response_value_render_option is FORMATTED_VALUE. The default dateTime render option is
-            [DateTimeRenderOption.SERIAL_NUMBER].</summary>
-        </member>
-        <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.IncludeValuesInResponse">
-            <summary>Determines if the update response should include the values of the cells that were
-            appended. By default, responses do not include the updated values.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.AppendRequest.Body">
             <summary>Gets or sets the body of this request.</summary>
@@ -743,6 +736,20 @@
         <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.Range">
             <summary>The A1 notation of the values to update.</summary>
         </member>
+        <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.IncludeValuesInResponse">
+            <summary>Determines if the update response should include the values of the cells that were updated.
+            By default, responses do not include the updated values. If the range to write was larger than than
+            the range actually written, the response will include all values in the requested range (excluding
+            trailing empty rows and columns).</summary>
+        </member>
+        <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.ResponseValueRenderOption">
+            <summary>Determines how values in the response should be rendered. The default render option is
+            ValueRenderOption.FORMATTED_VALUE.</summary>
+        </member>
+        <member name="T:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.ResponseValueRenderOptionEnum">
+            <summary>Determines how values in the response should be rendered. The default render option is
+            ValueRenderOption.FORMATTED_VALUE.</summary>
+        </member>
         <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOption">
             <summary>How the input data should be interpreted.</summary>
         </member>
@@ -758,20 +765,6 @@
             <summary>Determines how dates, times, and durations in the response should be rendered. This is
             ignored if response_value_render_option is FORMATTED_VALUE. The default dateTime render option is
             DateTimeRenderOption.SERIAL_NUMBER.</summary>
-        </member>
-        <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.IncludeValuesInResponse">
-            <summary>Determines if the update response should include the values of the cells that were updated.
-            By default, responses do not include the updated values. If the range to write was larger than than
-            the range actually written, the response will include all values in the requested range (excluding
-            trailing empty rows and columns).</summary>
-        </member>
-        <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.ResponseValueRenderOption">
-            <summary>Determines how values in the response should be rendered. The default render option is
-            ValueRenderOption.FORMATTED_VALUE.</summary>
-        </member>
-        <member name="T:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.ResponseValueRenderOptionEnum">
-            <summary>Determines how values in the response should be rendered. The default render option is
-            ValueRenderOption.FORMATTED_VALUE.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.Body">
             <summary>Gets or sets the body of this request.</summary>
