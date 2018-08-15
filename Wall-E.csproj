@@ -279,6 +279,7 @@
     <Compile Include="Bot\Config.cs" />
     <Compile Include="Bot\IgnorarComandos%28Só esses%29.cs" />
     <Compile Include="Bot\Program.cs" />
+    <Compile Include="Calculadora.cs" />
     <Compile Include="Comandos\AddTageRemoveTagCargos.cs" />
     <Compile Include="Comandos\FoxholeEsquadrõesEntrareSair.cs" />
     <Compile Include="Comandos\Grupos.cs" />
