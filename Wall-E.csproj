@@ -288,6 +288,7 @@
     <Compile Include="Comandos\Música\Música.cs" />
     <Compile Include="Comandos\Música\PesquisanoYoutube.cs" />
     <Compile Include="Comandos\NúmeroAleatório.cs" />
+    <Compile Include="Comandos\PesquisaGoogle.cs" />
     <Compile Include="Comandos\SelfEmbed.cs" />
     <Compile Include="Comandos\ServerInfo.cs" />
     <Compile Include="Comandos\WhatsApp.cs" />
