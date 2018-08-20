@@ -22,5 +22,6 @@ namespace Wall_E.Comandos
         public const ulong ProjectReality = 316374375664451594;
         public const ulong Rust = 366756142136950784;
         public const ulong Unturned = 457959780640882690;
+        public const ulong IdBlackDragon = 893483472973489;
     }
 }

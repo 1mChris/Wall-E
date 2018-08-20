@@ -13,7 +13,7 @@ namespace Wall_E.Comandos
     public class MembroRegistrado
     {
         [Command("Membro")]
-        [Aliases("membro", "Membro_Registrado", "membro_registrado")]
+        [Aliases("membro", "Membro_Registrado", "membro_registrado", "Mr", "MR", "mr", "MEMBRO_REGISTRADO")]
 
         public async Task MembroRegistradoUBGE(CommandContext ctx)
         {

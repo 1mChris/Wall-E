@@ -23,17 +23,13 @@ namespace Wall_E.Comandos
 
         public async Task FormigasUBGE(CommandContext ctx)
         {
-            var leofsjal = DiscordEmoji.FromGuildEmote(ctx.Client, 371061892753391617);
-            var msgcarregando = await ctx.RespondAsync($"Carregando... {leofsjal}");
+            await ctx.TriggerTypingAsync();
 
             List<DiscordMember> lista = new List<DiscordMember>();
-            await msgcarregando.ModifyAsync($"Carregando... 17% {leofsjal}");
             IEnumerable<DiscordMember> membros = ctx.Guild.Members.Where(m => m.Roles.Any(r => r.Id == valores.IdFormigas));
             DiscordRole Formigas = ctx.Guild.GetRole(valores.IdFormigas);
-            await msgcarregando.ModifyAsync($"Carregando... 49% {leofsjal}");
             String names = null;
             int iterate = 0;
-            await msgcarregando.ModifyAsync($"Carregando... 78% {leofsjal}");
             lista = membros.ToList();
             foreach (DiscordMember e in lista.Distinct())
             {
@@ -41,8 +37,6 @@ namespace Wall_E.Comandos
                 if (iterate == 1) { names += e.Mention; }
                 else { names += $", {e.Mention}"; }
             }
-            await msgcarregando.ModifyAsync($"Carregado 100% {leofsjal}");
-            await msgcarregando.DeleteAsync();
             DiscordColor cor;
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             var embed = new DiscordEmbedBuilder();
@@ -61,17 +55,12 @@ namespace Wall_E.Comandos
 
         public async Task AlphaGroupUBGE(CommandContext ctx)
         {
-            var leofsjal = DiscordEmoji.FromGuildEmote(ctx.Client, 371061892753391617);
-            var msgcarregando = await ctx.RespondAsync($"Carregando... {leofsjal}");
-
+            await ctx.TriggerTypingAsync();
             List<DiscordMember> lista = new List<DiscordMember>();
-            await msgcarregando.ModifyAsync($"Carregando... 17% {leofsjal}");
             IEnumerable<DiscordMember> membros = ctx.Guild.Members.Where(m => m.Roles.Any(r => r.Id == valores.IdAlphaGroup));
             DiscordRole AlphaGroup = ctx.Guild.GetRole(valores.IdAlphaGroup);
-            await msgcarregando.ModifyAsync($"Carregando... 49% {leofsjal}");
             String names = null;
             int iterate = 0;
-            await msgcarregando.ModifyAsync($"Carregando... 78% {leofsjal}");
             lista = membros.ToList();
             foreach (DiscordMember e in lista.Distinct())
             {
@@ -79,8 +68,6 @@ namespace Wall_E.Comandos
                 if (iterate == 1) { names += e.Mention; }
                 else { names += $", {e.Mention}"; }
             }
-            await msgcarregando.ModifyAsync($"Carregado 100% {leofsjal}");
-            await msgcarregando.DeleteAsync();
             DiscordColor cor;
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             var embed = new DiscordEmbedBuilder();
@@ -99,17 +86,12 @@ namespace Wall_E.Comandos
 
         public async Task TuitiUBGE(CommandContext ctx)
         {
-            var leofsjal = DiscordEmoji.FromGuildEmote(ctx.Client, 371061892753391617);
-            var msgcarregando = await ctx.RespondAsync($"Carregando... {leofsjal}");
-
+            await ctx.TriggerTypingAsync();
             List<DiscordMember> lista = new List<DiscordMember>();
-            await msgcarregando.ModifyAsync($"Carregando... 17% {leofsjal}");
             IEnumerable<DiscordMember> membros = ctx.Guild.Members.Where(m => m.Roles.Any(r => r.Id == valores.IdTuiti));
             DiscordRole Tuiti = ctx.Guild.GetRole(valores.IdTuiti);
-            await msgcarregando.ModifyAsync($"Carregando... 49% {leofsjal}");
             String names = null;
             int iterate = 0;
-            await msgcarregando.ModifyAsync($"Carregando... 78% {leofsjal}");
             lista = membros.ToList();
             foreach (DiscordMember e in lista.Distinct())
             {
@@ -117,8 +99,6 @@ namespace Wall_E.Comandos
                 if (iterate == 1) { names += e.Mention; }
                 else { names += $", {e.Mention}"; }
             }
-            await msgcarregando.ModifyAsync($"Carregado 100% {leofsjal}");
-            await msgcarregando.DeleteAsync();
             DiscordColor cor;
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             var embed = new DiscordEmbedBuilder();
@@ -137,17 +117,12 @@ namespace Wall_E.Comandos
 
         public async Task DivisãoTáticaUBGE(CommandContext ctx)
         {
-            var leofsjal = DiscordEmoji.FromGuildEmote(ctx.Client, 371061892753391617);
-            var msgcarregando = await ctx.RespondAsync($"Carregando... {leofsjal}");
-
+            await ctx.TriggerTypingAsync();
             List<DiscordMember> lista = new List<DiscordMember>();
-            await msgcarregando.ModifyAsync($"Carregando... 17% {leofsjal}");
             IEnumerable<DiscordMember> membros = ctx.Guild.Members.Where(m => m.Roles.Any(r => r.Id == valores.IdDivisãoTática));
             DiscordRole DivisãoTática = ctx.Guild.GetRole(valores.IdDivisãoTática);
-            await msgcarregando.ModifyAsync($"Carregando... 49% {leofsjal}");
             String names = null;
             int iterate = 0;
-            await msgcarregando.ModifyAsync($"Carregando... 78% {leofsjal}");
             lista = membros.ToList();
             foreach (DiscordMember e in lista.Distinct())
             {
@@ -155,8 +130,6 @@ namespace Wall_E.Comandos
                 if (iterate == 1) { names += e.Mention; }
                 else { names += $", {e.Mention}"; }
             }
-            await msgcarregando.ModifyAsync($"Carregado 100% {leofsjal}");
-            await msgcarregando.DeleteAsync();
             DiscordColor cor;
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             var embed = new DiscordEmbedBuilder();

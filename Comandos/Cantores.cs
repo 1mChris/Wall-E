@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Wall_E.Comandos
 {
     [Group("cantores")]
-    [Aliases("c")]
+    [Aliases("c", "C", "Cantores", "CANTORES")]
 
     public class Cantores
     {

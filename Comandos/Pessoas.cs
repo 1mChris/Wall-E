@@ -19,17 +19,6 @@ namespace Wall_E.Comandos
         }
     }
 
-    public class Diogo
-    {
-        [Command("Diogo")]
-        [Aliases("diogo")]
-
-        public async Task DiogoUBGE(CommandContext ctx)
-        {
-            await ctx.RespondAsync("Pingu da Ética");
-        }
-    }
-
     public class Léo
     {
         [Command("Léo")]
@@ -82,17 +71,6 @@ namespace Wall_E.Comandos
         public async Task WyselUBGE(CommandContext ctx)
         {
             await ctx.RespondAsync("Aviãozinho da Ética :airplane_small:");
-        }
-    }
-
-    public class Rex
-    {
-        [Command("Rex")]
-        [Aliases("rex")]
-
-        public async Task RexUBGE(CommandContext ctx)
-        {
-            await ctx.RespondAsync("StarWars e BanHammer da Ética");
         }
     }
 

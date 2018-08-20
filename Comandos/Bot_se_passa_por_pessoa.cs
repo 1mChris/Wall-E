@@ -9,19 +9,26 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class SelfEmbed
+    public class Bot_se_passa_por_pessoa
     {
-        [Command("Embed")]
-        [Aliases("embed", "EMBED")]
+        [Command("Say")]
+        [Aliases("Talk", "Fale", "SAY", "say", "talk", "TALK", "FALE", "fale")]
 
-        public async Task SelfEmbed2018(CommandContext ctx, [RemainingText] string embedpessoa = null)
+        public async Task FalaPessoaTexto(CommandContext ctx, [RemainingText] string textopessoa = null)
+        {
+            await ctx.RespondAsync(textopessoa);
+        }
+
+        [Command("Embed")]
+        [Aliases("EMBED", "embed")]
+
+        public async Task FalaEmbedPessoa(CommandContext ctx, [RemainingText] string textopessoaembed = null)
         {
             var embed = new DiscordEmbedBuilder();
-            DiscordUser self = ctx.Member;
             DiscordColor cor;
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             embed.WithColor(cor)
-                .WithDescription(embedpessoa);
+                .WithDescription(textopessoaembed);
             await ctx.RespondAsync(embed: embed);
         }
     }

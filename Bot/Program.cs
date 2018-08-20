@@ -67,7 +67,7 @@ namespace Wall_E
 
         public static void Main(string[] args)
         {
-            Console.Title = "Wall-E da Ética online! v1.3.3";
+            Console.Title = "Wall-E da Ética online! v1.4.4";
 
             var Container = new ContainerBuilder();
             {
@@ -135,7 +135,7 @@ namespace Wall_E
 
             async Task DiscordClient_Ready(ReadyEventArgs e)
             {
-                await Discord.UpdateStatusAsync(new DiscordGame("no discord da UBGE!"));
+                await Discord.UpdateStatusAsync(new DiscordGame("no Discord da UBGE!"));
             }
 
             CommandsNext.RegisterCommands(Assembly.GetEntryAssembly());
