@@ -116,7 +116,7 @@ namespace Wall_E.Comandos
             var emojo = DiscordEmoji.FromName(ctx.Client, ":thinking:");
 
             var Formigas = ctx.Guild.GetRole(valores.IdFormigas);
-            var AlphaGroup = ctx.Guild.GetRole(valores.IdAlphaGroup);
+            var Canivetes = ctx.Guild.GetRole(valores.IdCanivetes);
             var Tuiti = ctx.Guild.GetRole(valores.IdTuiti);
             var DivisaoTatica = ctx.Guild.GetRole(valores.IdDivisãoTática);
 
@@ -127,7 +127,7 @@ namespace Wall_E.Comandos
 
             embedesquadraosaiu.WithColor(cor)
                 .WithAuthor($"Tag do esquadrão foi removida com sucesso.", null, "https://cdn.discordapp.com/emojis/450829956063166474.png?v=1")
-                .WithDescription($"Removi a tag do esquadrão `{ctx.Guild.GetRole(dicionariofoxhole[squad]).Name}` para você, se quiser entrar em outro esquadrão, digite /fox-entrar `(squad)`.\n\n**Esquadrões:**\n/fox-entrar `Formigas`\n/fox-entrar `AlphaGroup`\n/fox-entrar `DivisãoTática`\n/fox-entrar `Tuiti`")
+                .WithDescription($"Removi a tag do esquadrão `{ctx.Guild.GetRole(dicionariofoxhole[squad]).Name}` para você, se quiser entrar em outro esquadrão, digite /fox-entrar `(squad)`.\n\n**Esquadrões:**\n/fox-entrar `Formigas`\n/fox-entrar `Canivete`\n/fox-entrar `DivisãoTática`\n/fox-entrar `Tuiti`\n/fox-entrar `BlackDragon`")
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
             semmembrodocla.WithColor(cor)
                 .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")

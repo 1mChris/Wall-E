@@ -10,7 +10,7 @@ namespace Wall_E.Comandos
     public class valores
     {
         public const ulong IdFormigas = 457713875932938251;
-        public const ulong IdAlphaGroup = 456887276878692361;
+        public const ulong IdCanivetes = 456887276878692361;
         public const ulong IdTuiti = 466013933807992832;
         public const ulong IdDivisãoTática = 466465483604885504;
         public const ulong IdLogWall_E = 460875622323978240;
@@ -22,6 +22,6 @@ namespace Wall_E.Comandos
         public const ulong ProjectReality = 316374375664451594;
         public const ulong Rust = 366756142136950784;
         public const ulong Unturned = 457959780640882690;
-        public const ulong IdBlackDragon = 893483472973489;
+        public const ulong IdBlackDragon = 481976097949614081;
     }
 }

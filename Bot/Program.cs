@@ -67,7 +67,7 @@ namespace Wall_E
 
         public static void Main(string[] args)
         {
-            Console.Title = "Wall-E da Ética online! v1.4.4";
+            Console.Title = "Wall-E da Ética online! v1.4.5";
 
             var Container = new ContainerBuilder();
             {
