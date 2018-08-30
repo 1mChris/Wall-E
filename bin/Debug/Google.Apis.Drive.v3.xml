@@ -2492,6 +2492,10 @@
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanDelete">
             <summary>Whether the current user can delete this file.</summary>
         </member>
+        <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanDeleteChildren">
+            <summary>Whether the current user can delete children of this folder. This is false when the item is not
+            a folder. Only populated for Team Drive items.</summary>
+        </member>
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanDownload">
             <summary>Whether the current user can download this file.</summary>
         </member>
@@ -2502,14 +2506,30 @@
             <summary>Whether the current user can list the children of this folder. This is always false when the
             item is not a folder.</summary>
         </member>
+        <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanMoveChildrenOutOfTeamDrive">
+            <summary>Whether the current user can move children of this folder outside of the Team Drive. This is
+            false when the item is not a folder. Only populated for Team Drive items.</summary>
+        </member>
+        <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanMoveChildrenWithinTeamDrive">
+            <summary>Whether the current user can move children of this folder within the Team Drive. This is false
+            when the item is not a folder. Only populated for Team Drive items.</summary>
+        </member>
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanMoveItemIntoTeamDrive">
             <summary>Whether the current user can move this item into a Team Drive. If the item is in a Team Drive,
             this field is equivalent to canMoveTeamDriveItem.</summary>
         </member>
+        <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanMoveItemOutOfTeamDrive">
+            <summary>Whether the current user can move this Team Drive item outside of this Team Drive by changing
+            its parent. Note that a request to change the parent of the item may still fail depending on the new
+            parent that is being added. Only populated for Team Drive items.</summary>
+        </member>
+        <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanMoveItemWithinTeamDrive">
+            <summary>Whether the current user can move this Team Drive item within this Team Drive. Note that a
+            request to change the parent of the item may still fail depending on the new parent that is being added.
+            Only populated for Team Drive items.</summary>
+        </member>
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanMoveTeamDriveItem">
-            <summary>Whether the current user can move this Team Drive item by changing its parent. Note that a
-            request to change the parent for this item may still fail depending on the new parent that is being
-            added. Only populated for Team Drive files.</summary>
+            <summary>Deprecated - use canMoveItemWithinTeamDrive or canMoveItemOutOfTeamDrive instead.</summary>
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanReadRevisions">
             <summary>Whether the current user can read the revisions resource of this file. For a Team Drive item,
@@ -2522,7 +2542,7 @@
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanRemoveChildren">
             <summary>Whether the current user can remove children from this folder. This is always false when the
-            item is not a folder.</summary>
+            item is not a folder. For Team Drive items, use canDeleteChildren or canTrashChildren instead.</summary>
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanRename">
             <summary>Whether the current user can rename this file.</summary>
@@ -2532,6 +2552,10 @@
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanTrash">
             <summary>Whether the current user can move this file to trash.</summary>
+        </member>
+        <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanTrashChildren">
+            <summary>Whether the current user can trash children of this folder. This is false when the item is not
+            a folder. Only populated for Team Drive items.</summary>
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.File.CapabilitiesData.CanUntrash">
             <summary>Whether the current user can restore this file from trash.</summary>
@@ -3013,6 +3037,9 @@
         <member name="P:Google.Apis.Drive.v3.Data.TeamDrive.CapabilitiesData.CanCopy">
             <summary>Whether the current user can copy files in this Team Drive.</summary>
         </member>
+        <member name="P:Google.Apis.Drive.v3.Data.TeamDrive.CapabilitiesData.CanDeleteChildren">
+            <summary>Whether the current user can delete children from folders in this Team Drive.</summary>
+        </member>
         <member name="P:Google.Apis.Drive.v3.Data.TeamDrive.CapabilitiesData.CanDeleteTeamDrive">
             <summary>Whether the current user can delete this Team Drive. Attempting to delete the Team Drive may
             still fail if there are untrashed items inside the Team Drive.</summary>
@@ -3034,7 +3061,7 @@
             <summary>Whether the current user can read the revisions resource of files in this Team Drive.</summary>
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.TeamDrive.CapabilitiesData.CanRemoveChildren">
-            <summary>Whether the current user can remove children from folders in this Team Drive.</summary>
+            <summary>Deprecated - use canDeleteChildren or canTrashChildren instead.</summary>
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.TeamDrive.CapabilitiesData.CanRename">
             <summary>Whether the current user can rename files or folders in this Team Drive.</summary>
@@ -3044,6 +3071,9 @@
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.TeamDrive.CapabilitiesData.CanShare">
             <summary>Whether the current user can share files or folders in this Team Drive.</summary>
+        </member>
+        <member name="P:Google.Apis.Drive.v3.Data.TeamDrive.CapabilitiesData.CanTrashChildren">
+            <summary>Whether the current user can trash children from folders in this Team Drive.</summary>
         </member>
         <member name="T:Google.Apis.Drive.v3.Data.TeamDrive.RestrictionsData">
             <summary>A set of restrictions that apply to this Team Drive or items inside this Team Drive.</summary>

@@ -30,7 +30,6 @@ using System.Threading.Tasks;
 using Wall_E.Comandos;
 using Wall_E.Utilidades;
 using Wall_E.Bot;
-using Wall_E.API_GoogleSheets;
 using Wall_E;
 
 namespace Wall_E
@@ -67,7 +66,7 @@ namespace Wall_E
 
         public static void Main(string[] args)
         {
-            Console.Title = "Wall-E da Ética online! v1.4.6";
+            Console.Title = "Wall-E da Ética online! v1.5.6";
             Instance = new Wall_E();
             Instance.StartAsync().GetAwaiter().GetResult();
         }

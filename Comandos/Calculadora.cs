@@ -17,7 +17,7 @@ namespace Wall_E
         {
             int resultado;
             resultado = numero1 + numero2;
-            await ctx.RespondAsync($"{ctx.Member.Mention} **|** Resultado = `{resultado.ToString()}`");
+            await ctx.RespondAsync($"{ctx.Member.Mention} **|** **Resultado =** `{resultado.ToString()}`");
         }
 
         [Command("Subtracacao")]
@@ -27,7 +27,7 @@ namespace Wall_E
         {
             int resultado;
             resultado = numero1 - numero2;
-            await ctx.RespondAsync($"{ctx.Member.Mention} **|** Resultado = `{resultado.ToString()}`");
+            await ctx.RespondAsync($"{ctx.Member.Mention} **|** **Resultado =** `{resultado.ToString()}`");
         }
 
         [Command("Divisao")]
@@ -37,7 +37,7 @@ namespace Wall_E
         {
             int resultado;
             resultado = numero1 / numero2;
-            await ctx.RespondAsync($"{ctx.Member.Mention} **|** Resultado = `{resultado.ToString()}`");
+            await ctx.RespondAsync($"{ctx.Member.Mention} **|** **Resultado =** `{resultado.ToString()}`");
         }
 
         [Command("Multiplicar")]
@@ -47,7 +47,7 @@ namespace Wall_E
         {
             int resultado;
             resultado = numero1 * numero2;
-            await ctx.RespondAsync($"{ctx.Member.Mention} **|** Resultado = `{resultado.ToString()}`");
+            await ctx.RespondAsync($"{ctx.Member.Mention} **|** **Resultado =** `{resultado.ToString()}`");
         }
     }
 }
