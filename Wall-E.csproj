@@ -274,8 +274,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API_GoogleSheets\GoogleAPIBulk.cs" />
-    <Compile Include="API_GoogleSheets\GoogleAPIWrite.cs" />
     <Compile Include="Bot\Config.cs" />
     <Compile Include="Bot\IgnorarComandos%28Só esses%29.cs" />
     <Compile Include="Bot\Program.cs" />
@@ -284,13 +282,13 @@
     <Compile Include="Comandos\FoxholeEsquadrõesEntrareSair.cs" />
     <Compile Include="Comandos\Grupos.cs" />
     <Compile Include="Comandos\Help.cs" />
-    <Compile Include="Comandos\ManipulaçãodeImagens.cs" />
     <Compile Include="Comandos\Música\Extras.cs" />
     <Compile Include="Comandos\Música\Música.cs" />
     <Compile Include="Comandos\Música\PesquisanoYoutube.cs" />
     <Compile Include="Comandos\NúmeroAleatório.cs" />
     <Compile Include="Comandos\Bot_se_passa_por_pessoa.cs" />
     <Compile Include="Comandos\ServerInfo.cs" />
+    <Compile Include="Comandos\VelocidadeMédia.cs" />
     <Compile Include="Comandos\WhatsApp.cs" />
     <Compile Include="Utilidades\CorDiscordEmbed.cs" />
     <Compile Include="Bot\Valores.cs" />
@@ -341,9 +339,7 @@
     <None Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\jquery-3.3.1.slim.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Imagens Jogos\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="avatar_DC4_icon.ico" />
     <Content Include="Scripts\jquery-3.3.1.intellisense.js" />

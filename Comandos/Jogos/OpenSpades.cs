@@ -17,17 +17,12 @@ namespace Wall_E.Comandos
 
         public async Task OSUBGE(CommandContext ctx)
         {
-            var leofsjal = DiscordEmoji.FromGuildEmote(ctx.Client, 371061892753391617);
-            var msgcarregando = await ctx.RespondAsync($"Carregando... {leofsjal}");
-
+            await ctx.TriggerTypingAsync();
             List<DiscordMember> lista = new List<DiscordMember>();
-            await msgcarregando.ModifyAsync($"Carregando... 17% {leofsjal}");
             IEnumerable<DiscordMember> membros = ctx.Guild.Members.Where(m => m.Roles.Any(r => r.Id == valores.OpenSpades));
             DiscordRole OpenSpades = ctx.Guild.GetRole(valores.OpenSpades);
-            await msgcarregando.ModifyAsync($"Carregando... 49% {leofsjal}");
             String names = null;
             int iterate = 0;
-            await msgcarregando.ModifyAsync($"Carregando... 78% {leofsjal}");
             lista = membros.ToList();
             foreach (DiscordMember e in lista.Distinct())
             {
@@ -35,8 +30,6 @@ namespace Wall_E.Comandos
                 if (iterate == 1) { names += e.Mention; }
                 else { names += $", {e.Mention}"; }
             }
-            await msgcarregando.ModifyAsync($"Carregado 100% {leofsjal}");
-            await msgcarregando.DeleteAsync();
             DiscordColor cor;
             cor = new Utilidades.CorDiscordEmbed().randomColor();
             DiscordUser self = ctx.Member;

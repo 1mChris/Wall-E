@@ -51,7 +51,7 @@ namespace Wall_E.Comandos
         }
 
         [Command("Canivete")]
-        [Aliases("canivete", "CANIVETE", "CA", "ca", "Ca")]
+        [Aliases("canivete", "CANIVETE", "CA", "ca", "Ca", "Canivetes", "CANIVETES", "canivetes")]
 
         public async Task AlphaGroupUBGE(CommandContext ctx)
         {
@@ -73,7 +73,7 @@ namespace Wall_E.Comandos
             var embed = new DiscordEmbedBuilder();
             DiscordUser self = ctx.Member;
             embed.WithColor(cor)
-                .WithAuthor("Esquadrão Canivetes (CA)", null, "https://cdn.discordapp.com/attachments/467050371584360448/481637029097111553/contorno_perfeito.png")
+                .WithAuthor("Esquadrão Canivete(s) (CA)", null, "https://cdn.discordapp.com/attachments/467050371584360448/481637029097111553/contorno_perfeito.png")
                 .WithDescription("Oficiais: <@247969272670715904>, <@335398031040184320> e <@301118482467258368>.\n\n- Principal área de atuação: Atuamos em todas as áreas, dependendo do momento da guerra e da vontade dos membros.\n\nFilosofia: Nossa meta é nos tornarmos um grupo altamente habilidoso. Buscaremos sempre fazer a melhor partida possível e trazer a vitória para a UBGE. Novatos também são bem-vindos, desde que tenham real vontade de aprender e cooperar, pois faremos partidas sérias.\n\n\"Versatilidade\" será o nosso nome do meio, todos os nossos membros aprenderão a lidar com qualquer situação adversa do campo de batalha. Esse é o esquadrão para aqueles que não aceitam menos do que ser os melhores.\n\n**Somos a Espada e o Escudo dos Coloniais!**\n\n>> **IMPORTANTE**: Sempre jogamos com push-to-talk.")
                 .AddField(name: "Membros:", value: $"{names}", inline: true)
                 .WithThumbnailUrl("https://cdn.discordapp.com/attachments/467050371584360448/481637029097111553/contorno_perfeito.png")

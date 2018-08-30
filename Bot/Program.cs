@@ -67,16 +67,7 @@ namespace Wall_E
 
         public static void Main(string[] args)
         {
-            Console.Title = "Wall-E da Ética online! v1.4.5";
-
-            var Container = new ContainerBuilder();
-            {
-                Container.RegisterType<GoogleAPIWrite>().SingleInstance();
-                Container.RegisterType<GoogleAPIBulk>().SingleInstance();
-            }
-            Services = Container.Build();
-            Task.Delay(200);
-
+            Console.Title = "Wall-E da Ética online! v1.4.6";
             Instance = new Wall_E();
             Instance.StartAsync().GetAwaiter().GetResult();
         }
