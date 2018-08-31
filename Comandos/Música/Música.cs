@@ -14,8 +14,7 @@ namespace Wall_E.Comandos
 {
     public class MúsicaWall_E
     {
-        [Command("Play")]
-        [Aliases("play", "plei")]
+        [Command("Pow")]
 
         public async Task PLAY(CommandContext ctx, string música)
         {

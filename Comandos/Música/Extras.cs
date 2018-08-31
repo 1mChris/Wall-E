@@ -18,19 +18,14 @@ namespace Wall_E.Comandos
     {
         public YoutubeAPI YoutubeApi { get; } = new YoutubeAPI("AIzaSyCFUVnPDH9uL5Z59lcr6MVOgOqA_JfbHP4", 10);
 
-        [Command("Pesquisa")]
-        [Aliases("pesquisa", "Pesquisar", "pesquisar", "PESQUISA", "PESQUISAR")]
+        [Command("Play")]
+        [Aliases("play", "PLAY", "P", "p")]
 
         public async Task Pesquisa(CommandContext ctx, [RemainingText] string pesquisa = null)
         {
-            var embed = new DiscordEmbedBuilder();
-            DiscordUser self = ctx.Member;
-            DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
-
             if (string.IsNullOrEmpty(pesquisa))
             {
-                await ctx.RespondAsync($"{ctx.Member.Mention} infelizmente sua pesquisa foi inválida. Tente novamente quando quiser.");
+                await ctx.RespondAsync($"{ctx.Member.Mention} infelizmente sua pesquisa foi inválida. Tente novamente mais tarde.");
                 return;
             }
 
@@ -41,10 +36,27 @@ namespace Wall_E.Comandos
             {
                 mensagem += $"`{i+1}.` - {resultados[i].Title} - Enviado por: **{resultados[i].Author}**\n";
             }
-            embed.WithColor(cor)
-                .WithDescription(mensagem)
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
-            await ctx.RespondAsync(mensagem);
+            var mensagemlista = await ctx.RespondAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 10 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 9 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 8 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 7 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 6 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 5 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 4 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 3 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 2 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 1 segundos.");
+            await Task.Delay(1000);
+            await mensagemlista.DeleteAsync();
         }
     }
 }
