@@ -285,7 +285,6 @@
     <Compile Include="Comandos\Grupos.cs" />
     <Compile Include="Comandos\Help.cs" />
     <Compile Include="Comandos\Música\Extras.cs" />
-    <Compile Include="Comandos\Música\Música.cs" />
     <Compile Include="Comandos\Música\PesquisanoYoutube.cs" />
     <Compile Include="Comandos\NúmeroAleatório.cs" />
     <Compile Include="Comandos\Bot_se_passa_por_pessoa.cs" />

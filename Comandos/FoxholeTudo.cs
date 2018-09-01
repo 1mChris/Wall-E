@@ -16,8 +16,6 @@ namespace Wall_E.Comandos
 
     public class FoxholeTudo
     {
-        private object dicionariofoxhole;
-
         [Command("Formigas")]
         [Aliases("formigas", "FOR", "for")]
 

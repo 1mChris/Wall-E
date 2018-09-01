@@ -28,15 +28,15 @@ namespace Wall_E.Comandos
                 await ctx.RespondAsync($"{ctx.Member.Mention} infelizmente sua pesquisa foi inválida. Tente novamente mais tarde.");
                 return;
             }
-
             var resultados = (await YoutubeApi.SearchAsync(pesquisa)).ToArray();
             var mensagem = "";
 
             for (int i = 0; i <= 9; i++)
             {
-                mensagem += $"`{i+1}.` - {resultados[i].Title} - Enviado por: **{resultados[i].Author}**\n";
+                mensagem += $"`{i + 1}.` - {resultados[i].Title} - Enviado por: **{resultados[i].Author}**\n";
             }
             var mensagemlista = await ctx.RespondAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 10 segundos.");
+            #region Contagem
             await Task.Delay(1000);
             await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 9 segundos.");
             await Task.Delay(1000);
@@ -57,6 +57,7 @@ namespace Wall_E.Comandos
             await mensagemlista.ModifyAsync($"{mensagem}\nPara escolher a música desejada digite: ``/Número``\nExemplo: ``/4``\nPara cancelar digite: ``/cancelar``.\n\nEssa mensagem se auto excluirá em 1 segundos.");
             await Task.Delay(1000);
             await mensagemlista.DeleteAsync();
-        }
+            #endregion
+        }           
     }
 }
