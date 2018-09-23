@@ -2753,7 +2753,7 @@
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.Permission.Role">
             <summary>The role granted by this permission. While new values may be supported in the future, the following
-            are currently allowed: - organizer - owner - writer - commenter - reader</summary>
+            are currently allowed: - owner - organizer - fileOrganizer - writer - commenter - reader</summary>
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.Permission.TeamDrivePermissionDetails">
             <summary>Details of whether the permissions on this Team Drive item are inherited or directly on this item.
@@ -2775,7 +2775,7 @@
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.Permission.TeamDrivePermissionDetailsData.Role">
             <summary>The primary role for this user. While new values may be added in the future, the following are
-            currently possible: - organizer - writer - commenter - reader</summary>
+            currently possible: - organizer - fileOrganizer - writer - commenter - reader</summary>
         </member>
         <member name="P:Google.Apis.Drive.v3.Data.Permission.TeamDrivePermissionDetailsData.TeamDrivePermissionType">
             <summary>The Team Drive permission type for this user. While new values may be added in future, the

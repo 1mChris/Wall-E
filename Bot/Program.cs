@@ -66,7 +66,10 @@ namespace Wall_E
 
         public static void Main(string[] args)
         {
-            Console.Title = "Wall-E da Ética online! v1.5.6";
+            Console.Title = "Wall-E da Ética online! v1.6.7";
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("[Wall-E] [DSharpPlus] [Discord] Bem-Vindo Luiz! Me conectei ao Discord.");
+            Console.ResetColor();
             Instance = new Wall_E();
             Instance.StartAsync().GetAwaiter().GetResult();
         }
@@ -117,7 +120,7 @@ namespace Wall_E
                         iterate++;
                     }
                     Console.WriteLine(args.Exception.ToString());
-                    await log.SendMessageAsync($"O membro `{ctx.Member.DisplayName}` executou um comando inexistente: `{Config.Prefix}{cntfe.Command}`.\nChat: `{ctx.Channel}`");
+                    await log.SendMessageAsync($"O membro `{ctx.Member.DisplayName}` executou um comando inexistente: `{Config.Prefix}{cntfe.Command}`.\nChat: `{ctx.Channel}`\nDia e Hora: `{DateTime.Now}`\n-------------------------------------------------------\n");
                 }
             };
 
@@ -126,6 +129,7 @@ namespace Wall_E
             async Task DiscordClient_Ready(ReadyEventArgs e)
             {
                 await Discord.UpdateStatusAsync(new DiscordGame("no Discord da UBGE!"));
+                await log.SendMessageAsync($"**Wall-E da Ética online!**\nLigado às: `{DateTime.Now}`");
             }
 
             CommandsNext.RegisterCommands(Assembly.GetEntryAssembly());
