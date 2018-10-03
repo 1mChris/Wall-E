@@ -12,7 +12,7 @@ namespace Wall_E.Comandos
     [Group("OS")]
     [Aliases("os")]
 
-    public class Desban
+    public class OpenSpadesComandosDiscord
     {
         [Command("Desban")]
         [Aliases("desban", "DESBAN")]
@@ -21,7 +21,7 @@ namespace Wall_E.Comandos
         {
             await ctx.RespondAsync("Você foi banido dos servidores da UBGE e quer um possível desban? A secretaria fez um formulário para você preencher para possivelmente você ser desbanido.\n(A secretaria só irá dar 1 chance, se você for banido novamente e estiver usando hack, você não terá outra chance.)\n\nLink: https://docs.google.com/forms/d/e/1FAIpQLSe4IMX-pIUHpnm_VZdrUabI6NNz58gLHUomHV5bifMR2ejshQ/viewform");
         }
-    
+
         [Command("Guard")]
         [Aliases("guard", "GUARD")]
 
@@ -53,10 +53,10 @@ namespace Wall_E.Comandos
                 .WithAuthor("Votação:", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png")
                 .WithDescription(texto)
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
-            await ctx.RespondAsync("<@&366756439013851137>, votação abaixo :point_down:");
+            await ctx.RespondAsync($"<@&{valores.OpenSpades}>, votação abaixo :point_down:");
             var msgembed = await ctx.RespondAsync(embed: embed);
             await msgembed.CreateReactionAsync(emojo);
             await msgembed.CreateReactionAsync(emojo2);
-        }
+        }     
     }
 }

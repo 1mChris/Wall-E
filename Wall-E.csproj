@@ -99,14 +99,14 @@
     <Reference Include="Google.Apis.Core, Version=1.35.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.Core.1.35.2\lib\net45\Google.Apis.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Drive.v3, Version=1.35.2.1344, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Drive.v3.1.35.2.1344\lib\net45\Google.Apis.Drive.v3.dll</HintPath>
+    <Reference Include="Google.Apis.Drive.v3, Version=1.35.2.1358, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Drive.v3.1.35.2.1358\lib\net45\Google.Apis.Drive.v3.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.PlatformServices, Version=1.35.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.35.2\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Sheets.v4, Version=1.35.2.1356, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Sheets.v4.1.35.2.1356\lib\net45\Google.Apis.Sheets.v4.dll</HintPath>
+    <Reference Include="Google.Apis.Sheets.v4, Version=1.35.2.1358, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Sheets.v4.1.35.2.1358\lib\net45\Google.Apis.Sheets.v4.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.YouTube.v3, Version=1.35.2.1226, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.YouTube.v3.1.35.2.1226\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
@@ -262,11 +262,12 @@
     <Compile Include="Bot\Config.cs" />
     <Compile Include="Comandos\Desenvolvedor\IgnorarComandos%28Só esses%29.cs" />
     <Compile Include="Bot\Program.cs" />
+    <Compile Include="Comandos\Desenvolvedor\Ping.cs" />
     <Compile Include="Comandos\Matemática\Bhaskara.cs" />
     <Compile Include="Comandos\Matemática\Calculadora.cs" />
     <Compile Include="Comandos\Desenvolvedor\AddTageRemoveTagCargos.cs" />
     <Compile Include="Comandos\Matemática\Delta.cs" />
-    <Compile Include="Comandos\Secretarias\FoxholeEsquadrõesEntrareSair.cs" />
+    <Compile Include="Comandos\Extras das Secretarias\FoxholeEsquadrõesEntrareSair.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Grupos.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Help.cs" />
     <Compile Include="Comandos\Música\Extras.cs" />
@@ -289,14 +290,14 @@
     <Compile Include="Comandos\Staff - UBGE\Conselho.cs" />
     <Compile Include="Comandos\Desenvolvedor\Criador.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Denúncia.cs" />
-    <Compile Include="Comandos\Secretarias\OpenSpadesComandos.cs" />
+    <Compile Include="Comandos\Extras das Secretarias\OpenSpadesComandos.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Discords.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Divsul.cs" />
     <Compile Include="Comandos\Staff - UBGE\Doar.cs" />
     <Compile Include="Comandos\Staff - UBGE\Facebook.cs" />
     <Compile Include="Comandos\Staff - UBGE\Formulários.cs" />
-    <Compile Include="Comandos\Secretarias\FoxholeComando.cs" />
-    <Compile Include="Comandos\Secretarias\FoxholeTudo.cs" />
+    <Compile Include="Comandos\Extras das Secretarias\FoxholeComando.cs" />
+    <Compile Include="Comandos\Extras das Secretarias\FoxholeTudo.cs" />
     <Compile Include="Comandos\Staff - UBGE\Fórum.cs" />
     <Compile Include="Comandos\Desenvolvedor\ID.cs" />
     <Compile Include="Comandos\Staff - UBGE\IntroduçãoDiscord.cs" />
@@ -308,14 +309,14 @@
     <Compile Include="Comandos\Zueiras\Pinga.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Pioneiros.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Página.cs" />
-    <Compile Include="Comandos\Jogos\FoxholeJogo.cs" />
-    <Compile Include="Comandos\Jogos\Foxholeeminglês.cs" />
-    <Compile Include="Comandos\Jogos\LifeIsFeudal.cs" />
-    <Compile Include="Comandos\Jogos\Minecraft.cs" />
-    <Compile Include="Comandos\Jogos\OpenSpades.cs" />
-    <Compile Include="Comandos\Jogos\ProjectReality.cs" />
-    <Compile Include="Comandos\Jogos\Rust.cs" />
-    <Compile Include="Comandos\Jogos\Unturned.cs" />
+    <Compile Include="Comandos\Jogos das Secretarias\FoxholeJogo.cs" />
+    <Compile Include="Comandos\Jogos das Secretarias\Foxholeeminglês.cs" />
+    <Compile Include="Comandos\Jogos das Secretarias\LifeIsFeudal.cs" />
+    <Compile Include="Comandos\Jogos das Secretarias\Minecraft.cs" />
+    <Compile Include="Comandos\Jogos das Secretarias\OpenSpades.cs" />
+    <Compile Include="Comandos\Jogos das Secretarias\ProjectReality.cs" />
+    <Compile Include="Comandos\Jogos das Secretarias\Rust.cs" />
+    <Compile Include="Comandos\Jogos das Secretarias\Unturned.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@ namespace Wall_E.Comandos
         [Command("Say")]
         [Aliases("Talk", "Fale", "SAY", "say", "talk", "TALK", "FALE", "fale")]
 
-        public async Task FalaPessoaTexto(CommandContext ctx, [RemainingText] string textopessoa = null, DiscordChannel canal = null)
+        public async Task FalaPessoaTexto(CommandContext ctx, DiscordChannel canal = null, [RemainingText] string textopessoa = null)
         {
             await canal.SendMessageAsync(textopessoa);
         }

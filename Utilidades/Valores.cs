@@ -23,5 +23,9 @@ namespace Wall_E.Comandos
         public const ulong Rust = 366756142136950784;
         public const ulong Unturned = 457959780640882690;
         public const ulong IdBlackDragon = 481976097949614081;
+        public const ulong arena_chat = 490664049751883787;
+        public const ulong tow_chat = 490664319134990346;
+        public const ulong semanal_chat = 490664230907805716;
+        public const ulong secretaria_openspades_chat = 366762417708990474;
     }
 }
