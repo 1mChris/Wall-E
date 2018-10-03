@@ -263,6 +263,8 @@
     <Compile Include="Comandos\Desenvolvedor\IgnorarComandos%28Só esses%29.cs" />
     <Compile Include="Bot\Program.cs" />
     <Compile Include="Comandos\Desenvolvedor\Ping.cs" />
+    <Compile Include="Comandos\Extras das Secretarias\IRC - SecretariaOpenSpades\IRC_Arena.cs" />
+    <Compile Include="Comandos\Extras das Secretarias\IRC - SecretariaOpenSpades\IRC_TOW.cs" />
     <Compile Include="Comandos\Matemática\Bhaskara.cs" />
     <Compile Include="Comandos\Matemática\Calculadora.cs" />
     <Compile Include="Comandos\Desenvolvedor\AddTageRemoveTagCargos.cs" />
