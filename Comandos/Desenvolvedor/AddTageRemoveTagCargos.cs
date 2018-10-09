@@ -22,7 +22,7 @@ namespace Wall_E.Comandos
             var guild = await ctx.Client.GetGuildAsync(460875483442184212);
             var log = guild.GetChannel(valores.IdLogWall_E);
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
             embed.WithColor(cor)
                 .WithAuthor("Tag Adicionada!", null, "https://cdn.discordapp.com/attachments/443159405991821323/468136624736174080/Logo_UBGE_2.png")
@@ -66,7 +66,7 @@ namespace Wall_E.Comandos
             var guild = await ctx.Client.GetGuildAsync(460875483442184212);
             var log = guild.GetChannel(valores.IdLogWall_E);
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
             embed.WithColor(cor)
                 .WithAuthor("Tag Removida.", null, "https://cdn.discordapp.com/attachments/443159405991821323/468136624736174080/Logo_UBGE_2.png")

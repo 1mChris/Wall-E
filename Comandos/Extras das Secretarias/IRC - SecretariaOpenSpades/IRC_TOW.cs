@@ -18,17 +18,17 @@ namespace Wall_E.Comandos.Extras_das_Secretarias
         public static string IP = "irc.quakenet.org";
         private static int Porta = 6667;
         private static string Usuario = "USER IRCbot 0 * :IRCbot";
-        private static string Nome = "Wall-E";
+        private static string Nome = "Wall-E_TOW";
         private static string Canal = "#ubge.servidor";
 
-        [Command("towirc")]
+        [Command("towirc"), RequireRolesAttribute("Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
         [Aliases("TOWIRC", "TowIRC")]
 
         public async Task IRC_do_TOW(CommandContext ctx)
         {
             DiscordChannel TOW_Chat = ctx.Guild.GetChannel(valores.tow_chat);
             DiscordChannel Secretaria_OpenSpades = ctx.Guild.GetChannel(valores.secretaria_openspades_chat);
-            DiscordChannel Log = ctx.Guild.GetChannel(460875622323978240);
+            DiscordChannel Log = ctx.Guild.GetChannel(valores.IdLogWall_E);
 
             NetworkStream NS;
             TcpClient IRC;
@@ -49,15 +49,23 @@ namespace Wall_E.Comandos.Extras_das_Secretarias
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"[IRC] [UBGE-TOW] [Wall-E] [Discord] | A conexão com o servidor: \"TOW\" foi estabelecida com sucesso!");
                 Console.ResetColor();
-                await Secretaria_OpenSpades.SendMessageAsync($"**[IRC] [UBGE-TOW] [Wall-E] [Discord]** **|** A conexão com o servidor: **\"TOW\"** foi estabelecida com sucesso! Chat sendo enviado no: <#{valores.tow_chat}>");
+                await Secretaria_OpenSpades.SendMessageAsync($"**[IRC] [UBGE-TOW] [Wall-E] [Discord]** **|** A conexão com o servidor: ``TOW`` foi estabelecida com sucesso! Chat sendo enviado no: <#{valores.tow_chat}>");
 
                 while (true)
                 {
                     while ((InputLine = Reader.ReadLine()) != null)
                     {
-                        await TOW_Chat.SendMessageAsync($"**[UBGE-TOW]** **|** ``{DateTime.Now}`` >> {InputLine.Replace(":UBGE-ToW!~UBGE-ToW@179.218.243.249 PRIVMSG #ubge.servidor :", "")}");
-                        string[] splitInput = InputLine.Split(new Char[] {
-                            ' '
+                        if (InputLine.Contains("PING :port80a.se.quakenet.org") || InputLine.Contains("PING :port80c.se.quakenet.org") || InputLine.Contains("PING :underworld1.no.quakenet.org") || InputLine.Contains("PING :underworld2.no.quakenet.org")) {
+                            InputLine.Replace("PING :port80a.se.quakenet.org", "");
+                            InputLine.Replace("PING :port80c.se.quakenet.org", "");
+                            InputLine.Replace("PING :underworld1.no.quakenet.org", "");
+                            InputLine.Replace("PING :underworld2.no.quakenet.org", "");
+                        }
+                        else {
+                            await TOW_Chat.SendMessageAsync($"[UBGE-TOW] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-ToW!~UBGE-ToW@179.218.243.249 PRIVMSG #ubge.servidor :", "")}");
+                        }
+                           string[] splitInput = InputLine.Split(new Char[] {
+                           ' '
                         });
                         if (splitInput[0] == "PING")
                         {
@@ -84,10 +92,10 @@ namespace Wall_E.Comandos.Extras_das_Secretarias
             catch (Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"[IRC] [UBGE-TOW] [Wall-E] [Discord] | A conexão com o servidor: \"TOW\" não foi estabelecida com sucesso.\n.\nErro: {ex.ToString()}");
+                Console.WriteLine($"[IRC] [UBGE-TOW] [Wall-E] [Discord] | A conexão com o servidor: \"TOW\" não foi estabelecida com sucesso.\nErro: {ex.ToString()}");
                 Console.ResetColor();
-                await Secretaria_OpenSpades.SendMessageAsync($"**[IRC] [UBGE-TOW] [Wall-E] [Discord]** **|** A conexão com o servidor: **\"TOW\"** não foi estabelecida com sucesso. <@&{valores.OpenSpades}>, procurem o erro e tentem resolver!\n.\n**Erro:** {ex.ToString()}");
-                await Log.SendMessageAsync($"**[IRC] [UBGE-TOW] [Wall-E] [Discord]** **|** A conexão com o servidor: **\"TOW\"** não foi estabelecida com sucesso.\n.\n**Erro:** {ex.ToString()}");
+                await Secretaria_OpenSpades.SendMessageAsync($"**[IRC] [UBGE-TOW] [Wall-E] [Discord]** **|** A conexão com o servidor: ``TOW`` não foi estabelecida com sucesso.\n\n**Erro:**\n```{ex.ToString()}```");
+                await Log.SendMessageAsync($"**[IRC] [UBGE-TOW] [Wall-E] [Discord]** **|** A conexão com o servidor: ``TOW`` não foi estabelecida com sucesso.\n\n**Erro:**\n```{ex.ToString()}```");
                 Thread.Sleep(5000);
                 string[] argv = { };
             }

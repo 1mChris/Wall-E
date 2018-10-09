@@ -33,7 +33,7 @@ namespace Wall_E.Comandos
             var EmbednotMembro = new DiscordEmbedBuilder();
 
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
             DiscordRole MembroCla = ctx.Guild.GetRole(352296287493947402);
 
@@ -118,10 +118,10 @@ namespace Wall_E.Comandos
             var Formigas = ctx.Guild.GetRole(valores.IdFormigas);
             var Canivetes = ctx.Guild.GetRole(valores.IdCanivetes);
             var Tuiti = ctx.Guild.GetRole(valores.IdTuiti);
-            var DivisaoTatica = ctx.Guild.GetRole(valores.IdDivisãoTática);
+            var DivisaoTatica = ctx.Guild.GetRole(valores.IdDivisaoTatica);
 
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
             DiscordRole MembroCla = ctx.Guild.GetRole(352296287493947402);
 

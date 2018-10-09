@@ -20,7 +20,7 @@ namespace Wall_E.Comandos
             double x1 = Math.Round(((0 - b) + Math.Sqrt(delta)) / (2 * a));
             double x2 = Math.Round(((0 - b) - Math.Sqrt(delta)) / (2 * a));
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
             var embed = new DiscordEmbedBuilder();
             embed

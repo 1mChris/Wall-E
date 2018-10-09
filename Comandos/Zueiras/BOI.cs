@@ -17,7 +17,16 @@ namespace Wall_E.Comandos
 
         public async Task YeahBoi(CommandContext ctx)
         {
-            await ctx.RespondWithFileAsync(new FileStream("C:\\Users\\Luiz\\Desktop\\Wall-E\\Wall-E\\Imagens Jogos\\maxresdefault.jpg", FileMode.Open, FileAccess.Read));
+            var embed = new DiscordEmbedBuilder();
+            DiscordColor cor;
+            cor = new Utilidades.Utilidades().randomColor();
+            DiscordUser self = ctx.Member;
+
+            embed.WithColor(cor)
+                .WithAuthor(null, null, null)
+                .WithImageUrl("https://i.ytimg.com/vi/ezShTla3Qts/maxresdefault.jpg")
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+            await ctx.RespondAsync(embed: embed);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Wall_E.Comandos
             var servidor = ctx.Guild;
             var embed = new DiscordEmbedBuilder();
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
             embed.WithAuthor($"Informações do servidor {servidor.Name}")
                 .WithColor(cor)

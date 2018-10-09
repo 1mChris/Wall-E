@@ -35,7 +35,7 @@ namespace Wall_E.Comandos
 
         public async Task BetterSpadesOS(CommandContext ctx)
         {
-            await ctx.RespondAsync("O BetterSpades é um launcher leve como ace of spades mas um pouco mais bonito e agradável que o mesmo.\n\nTrailer do BetterSpades: https://youtu.be/0DxoJFF6EPE\n\nDownload do mesmo: https://github.com/xtreme8000/BetterSpades/release");
+            await ctx.RespondAsync("O BetterSpades é um launcher leve como o Ace of Spades, mas é um pouco mais bonito e agradável que o mesmo.\n\nTrailer do BetterSpades: https://youtu.be/0DxoJFF6EPE\n\nDownload do mesmo: https://github.com/xtreme8000/BetterSpades/release\n\n*Versão: 0.1.3*");
         }
 
         [Command("Votação")]
@@ -47,7 +47,7 @@ namespace Wall_E.Comandos
             var emojo2 = DiscordEmoji.FromName(ctx.Client, ":x:");
             DiscordUser self = ctx.Member;
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             var embed = new DiscordEmbedBuilder();
             embed.WithColor(cor)
                 .WithAuthor("Votação:", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png")

@@ -26,7 +26,7 @@ namespace Wall_E.Comandos
         {
             var embed = new DiscordEmbedBuilder();
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             embed.WithColor(cor)
                 .WithDescription(textopessoaembed);
             await ctx.RespondAsync(embed: embed);

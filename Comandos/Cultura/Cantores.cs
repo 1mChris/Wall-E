@@ -21,7 +21,7 @@ namespace Wall_E.Comandos
         public async Task ZéRamalhoCantor(CommandContext ctx)
         {
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
             var embed = new DiscordEmbedBuilder();
             embed.WithColor(cor)
@@ -38,7 +38,7 @@ namespace Wall_E.Comandos
         public async Task TimMaiaCantor(CommandContext ctx)
         {
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
             var embed = new DiscordEmbedBuilder();
             embed.WithColor(cor)

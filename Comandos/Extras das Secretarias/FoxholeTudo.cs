@@ -36,7 +36,7 @@ namespace Wall_E.Comandos
                 else { names += $", {e.Mention}"; }
             }
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             var embed = new DiscordEmbedBuilder();
             DiscordUser self = ctx.Member;
             embed.WithColor(cor)
@@ -67,7 +67,7 @@ namespace Wall_E.Comandos
                 else { names += $", {e.Mention}"; }
             }
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             var embed = new DiscordEmbedBuilder();
             DiscordUser self = ctx.Member;
             embed.WithColor(cor)
@@ -98,7 +98,7 @@ namespace Wall_E.Comandos
                 else { names += $", {e.Mention}"; }
             }
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             var embed = new DiscordEmbedBuilder();
             DiscordUser self = ctx.Member;
             embed.WithColor(cor)
@@ -117,8 +117,8 @@ namespace Wall_E.Comandos
         {
             await ctx.TriggerTypingAsync();
             List<DiscordMember> lista = new List<DiscordMember>();
-            IEnumerable<DiscordMember> membros = ctx.Guild.Members.Where(m => m.Roles.Any(r => r.Id == valores.IdDivisãoTática));
-            DiscordRole DivisãoTática = ctx.Guild.GetRole(valores.IdDivisãoTática);
+            IEnumerable<DiscordMember> membros = ctx.Guild.Members.Where(m => m.Roles.Any(r => r.Id == valores.IdDivisaoTatica));
+            DiscordRole DivisãoTática = ctx.Guild.GetRole(valores.IdDivisaoTatica);
             String names = null;
             int iterate = 0;
             lista = membros.ToList();
@@ -129,7 +129,7 @@ namespace Wall_E.Comandos
                 else { names += $", {e.Mention}"; }
             }
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             var embed = new DiscordEmbedBuilder();
             DiscordUser self = ctx.Member;
             embed.WithColor(cor)
@@ -159,7 +159,7 @@ namespace Wall_E.Comandos
                 else { names += $", {e.Mention}"; }
             }
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             var embed = new DiscordEmbedBuilder();
             DiscordUser self = ctx.Member;
             embed.WithColor(cor)

@@ -31,7 +31,7 @@ namespace Wall_E.Comandos
                 else { names += $", {e.Mention}"; }
             }
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
             var embed = new DiscordEmbedBuilder();
             embed.WithColor(cor)

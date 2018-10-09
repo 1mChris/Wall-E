@@ -260,6 +260,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bot\Config.cs" />
+    <Compile Include="Comandos\Desenvolvedor\Cargo_por_cargo.cs" />
+    <Compile Include="Comandos\Desenvolvedor\Desligar.cs" />
     <Compile Include="Comandos\Desenvolvedor\IgnorarComandos%28Só esses%29.cs" />
     <Compile Include="Bot\Program.cs" />
     <Compile Include="Comandos\Desenvolvedor\Ping.cs" />
@@ -279,7 +281,7 @@
     <Compile Include="Comandos\Desenvolvedor\ServerInfo.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\WhatsApp.cs" />
     <Compile Include="Comandos\Matemática\XVerYVer.cs" />
-    <Compile Include="Utilidades\CorDiscordEmbed.cs" />
+    <Compile Include="Utilidades\Utilidades.cs" />
     <Compile Include="Utilidades\Valores.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Aliados.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Arma3.cs" />

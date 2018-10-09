@@ -16,7 +16,7 @@ namespace Wall_E.Comandos
         public async Task NúmeroAleatório(CommandContext ctx, int min, int max)
         {
             DiscordColor cor;
-            cor = new Utilidades.CorDiscordEmbed().randomColor();
+            cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
             var número = new Random(DateTime.Now.Ticks.GetHashCode());
             var num = número.Next(min, max);

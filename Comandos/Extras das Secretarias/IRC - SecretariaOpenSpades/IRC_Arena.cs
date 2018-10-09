@@ -18,17 +18,17 @@ namespace Wall_E.Comandos.Extras_das_Secretarias.IRC___SecretariaOpenSpades
         public static string IP2 = "irc.quakenet.org";
         private static int Porta2 = 6667;
         private static string Usuario2 = "USER IRCbot 0 * :IRCbot";
-        private static string Nome2 = "Wall-E";
+        private static string Nome2 = "Wall-E_Arena";
         private static string Canal2 = "#ubge.servidor2";
 
-        [Command("arenairc")]
+        [Command("arenairc"), RequireRolesAttribute("Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
         [Aliases("ARENAIRC", "ArenaIRC")]
 
         public async Task IRC_da_Arena(CommandContext ctx)
         {
             DiscordChannel Arena_Chat = ctx.Guild.GetChannel(valores.arena_chat);
             DiscordChannel Secretaria_OpenSpades2 = ctx.Guild.GetChannel(valores.secretaria_openspades_chat);
-            DiscordChannel Log = ctx.Guild.GetChannel(460875622323978240);
+            DiscordChannel Log = ctx.Guild.GetChannel(valores.IdLogWall_E);
 
             NetworkStream NS2;
             TcpClient IRC2;
@@ -49,13 +49,21 @@ namespace Wall_E.Comandos.Extras_das_Secretarias.IRC___SecretariaOpenSpades
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"[IRC] [UBGE-Arena] [Wall-E] [Discord] | A conexão com o servidor: \"Arena\" foi estabelecida com sucesso!");
                 Console.ResetColor();
-                await Secretaria_OpenSpades2.SendMessageAsync($"**[IRC] [UBGE-Arena] [Wall-E] [Discord]** **|** A conexão com o servidor: **\"Arena\"** foi estabelecida com sucesso! Chat sendo enviado no: <#{valores.arena_chat}>");
+                await Secretaria_OpenSpades2.SendMessageAsync($"**[IRC] [UBGE-Arena] [Wall-E] [Discord]** **|** A conexão com o servidor: ``Arena`` foi estabelecida com sucesso! Chat sendo enviado no: <#{valores.arena_chat}>");
 
                 while (true)
                 {
                     while ((InputLine2 = Reader2.ReadLine()) != null)
                     {
-                        await Arena_Chat.SendMessageAsync($"**[UBGE-Arena]** **|** ``{DateTime.Now}`` >> {InputLine2.Replace(":UBGE-Arena!~UBGE-Arena@179.218.243.249 PRIVMSG #ubge.servidor :", "")}");
+                        if (InputLine2.Contains("PING :port80a.se.quakenet.org") || InputLine2.Contains("PING :port80c.se.quakenet.org") || InputLine2.Contains("PING :underworld1.no.quakenet.org") || InputLine2.Contains("PING :underworld2.no.quakenet.org")) {
+                            InputLine2.Replace("PING :port80a.se.quakenet.org", "");
+                            InputLine2.Replace("PING :port80c.se.quakenet.org", "");
+                            InputLine2.Replace("PING :underworld1.no.quakenet.org", "");
+                            InputLine2.Replace("PING :underworld2.no.quakenet.org", "");
+                        }
+                        else {
+                            await Arena_Chat.SendMessageAsync($"[UBGE-Arena] | ``{DateTime.Now}`` [-] {InputLine2.Replace(":UBGE-Arena!~UBGE-Aren@179.218.243.249 PRIVMSG #ubge.servidor2 :", "")}");
+                        }
                         string[] splitInput2 = InputLine2.Split(new Char[] {
                             ' '
                         });
@@ -84,10 +92,10 @@ namespace Wall_E.Comandos.Extras_das_Secretarias.IRC___SecretariaOpenSpades
             catch (Exception ex2)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"[IRC] [UBGE-Arena] [Wall-E] [Discord] | A conexão com o servidor: \"Arena\" não foi estabelecida com sucesso.\n.\nErro: {ex2.ToString()}");
+                Console.WriteLine($"[IRC] [UBGE-Arena] [Wall-E] [Discord] | A conexão com o servidor: \"Arena\" não foi estabelecida com sucesso.\n\nErro: {ex2.ToString()}");
                 Console.ResetColor();
-                await Secretaria_OpenSpades2.SendMessageAsync($"**[IRC] [UBGE-Arena] [Wall-E] [Discord]** **|** A conexão com o servidor: **\"Arena\"** não foi estabelecida com sucesso. <@&{valores.OpenSpades}>, procurem o erro e tentem resolver!\n.\n**Erro:** {ex2.ToString()}");
-                await Log.SendMessageAsync($"**[IRC] [UBGE-Arena] [Wall-E] [Discord]** **|** A conexão com o servidor: **\"Arena\"** não foi estabelecida com sucesso.\n.\n**Erro:** {ex2.ToString()}");
+                await Secretaria_OpenSpades2.SendMessageAsync($"**[IRC] [UBGE-Arena] [Wall-E] [Discord]** **|** A conexão com o servidor: ``Arena`` não foi estabelecida com sucesso.\n\n**Erro:**\n```{ex2.ToString()}```");
+                await Log.SendMessageAsync($"**[IRC] [UBGE-Arena] [Wall-E] [Discord]** **|** A conexão com o servidor: ``Arena`` não foi estabelecida com sucesso.\n\n**Erro:**\n```{ex2.ToString()}```");
                 Thread.Sleep(5000);
                 string[] argv = { };
             }
