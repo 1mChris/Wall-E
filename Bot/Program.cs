@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using AutoUpdaterDotNET;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Exceptions;
@@ -14,9 +15,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Wall_E.Comandos;
-using Wall_E.Utilidades;
-using Wall_E.Bot;
-using Wall_E;
 
 namespace Wall_E
 {
@@ -50,7 +48,7 @@ namespace Wall_E
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("[Wall-E] [DSharpPlus] [Discord] Bem-Vindo Luiz!");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[Wall-E] Versão: 1.8.9");
+            Console.WriteLine("[Wall-E] Versão: 1.9.0");
             Console.ResetColor();
             Instance = new Wall_E();
             Instance.StartAsync().GetAwaiter().GetResult();
@@ -105,8 +103,9 @@ namespace Wall_E
                 await Discord.UpdateStatusAsync(new DiscordGame("no Discord da UBGE!"));
                 await Log.SendMessageAsync($"**Wall-E da Ética online!**\nLigado às: ``{DateTime.Now}``");
 
+                DiscordChannel Paulo = Discord.GetChannelAsync(valores.PauloCanal).Result;
                 DiscordChannel Secretaria = Discord.GetChannelAsync(valores.secretaria_openspades_chat).Result;
-                await Secretaria.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/towirc``, ``/arenairc``, ``/semanalirc`` ?\nObrigado pela atenção!");
+                await Paulo.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/irc`` ?\nObrigado pela atenção!");
 
                 //DateTime DT = new DateTime();
                 //DiscordChannel Secretaria = Discord.GetChannelAsync(valores.secretaria_openspades_chat).Result;

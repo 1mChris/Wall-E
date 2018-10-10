@@ -1,10 +1,6 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
@@ -14,8 +10,7 @@ namespace Wall_E.Comandos
         [Command("Serverinfo")]
         [Aliases("serverinfo", "SERVERINFO")]
 
-        public async Task ServidorInformacoes(CommandContext ctx)
-        {
+        public async Task ServidorInformacoes(CommandContext ctx) {
             var servidor = ctx.Guild;
             var embed = new DiscordEmbedBuilder();
             DiscordColor cor;

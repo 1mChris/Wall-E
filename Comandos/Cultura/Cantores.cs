@@ -1,11 +1,6 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
@@ -18,8 +13,7 @@ namespace Wall_E.Comandos
         [Command("ZéRamalho")]
         [Aliases("ZÉRAMALHO", "zéramalho", "zr", "ZR")]
 
-        public async Task ZéRamalhoCantor(CommandContext ctx)
-        {
+        public async Task ZéRamalhoCantor(CommandContext ctx) {
             DiscordColor cor;
             cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
@@ -35,8 +29,7 @@ namespace Wall_E.Comandos
         [Command("TimMaia")]
         [Aliases("timmaia", "TIMMAIA", "TM", "tm")]
 
-        public async Task TimMaiaCantor(CommandContext ctx)
-        {
+        public async Task TimMaiaCantor(CommandContext ctx) {
             DiscordColor cor;
             cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;

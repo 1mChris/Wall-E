@@ -1,11 +1,8 @@
-﻿using DSharpPlus;
-using DSharpPlus.CommandsNext.Attributes;
+﻿using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Wall_E.Comandos.Desenvolvedor
@@ -15,14 +12,12 @@ namespace Wall_E.Comandos.Desenvolvedor
         [Command("DT"), RequireRolesAttribute("Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
         [Aliases("Dt", "dt", "dT")]
 
-        public async Task DesligarPorTempo(CommandContext ctx, String tempo = null)
-        {
+        public async Task DesligarPorTempo(CommandContext ctx, String tempo = null) {
             DiscordColor cor;
             cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
 
-            if (String.IsNullOrWhiteSpace(tempo))
-            {
+            if (String.IsNullOrWhiteSpace(tempo)) {
                 var temponull = new DiscordEmbedBuilder();
                 temponull.WithColor(cor)
                     .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")
@@ -37,18 +32,15 @@ namespace Wall_E.Comandos.Desenvolvedor
             int time = new Utilidades.Utilidades().getTime(tempo);
             String regex = "";
 
-            if (tempo.Contains('s'))
-            {
+            if (tempo.Contains('s')) {
                 display = time / 1000;
                 regex = display == 1 ? "Segundo" : "Segundos";
             }
-            else if (tempo.Contains('m'))
-            {
+            else if (tempo.Contains('m')) {
                 display = (time / 1000) / 60;
                 regex = display == 1 ? "Minuto" : "Minutos";
             }
-            else if (tempo.Contains('h'))
-            {
+            else if (tempo.Contains('h')) {
                 display = ((time / 60) / 60) / 1000;
                 regex = display == 1 ? "Hora" : "Horas";
             }
@@ -74,8 +66,7 @@ namespace Wall_E.Comandos.Desenvolvedor
         [Command("Desligar"), RequireRolesAttribute("Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
         [Aliases("desligar", "DESLIGAR", "OFF", "Off", "off")]
 
-        public async Task Desligar(CommandContext ctx)
-        {
+        public async Task Desligar(CommandContext ctx) {
             await ctx.Client.DisconnectAsync();
         }
     }

@@ -304,3 +304,6 @@ C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\HtmlAgilityPack.dll
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\HtmlAgilityPack.xml
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\Autofac.pdb
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\AutoUpdater.NET.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\AutoUpdater.NET.pdb
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\AutoUpdater.NET.xml

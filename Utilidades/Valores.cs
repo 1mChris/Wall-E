@@ -31,5 +31,7 @@ namespace Wall_E.Comandos
         public const ulong RTS = 491790103857856532;
         public const ulong Prisioneiro = 286136346932936704;
         public const ulong Wall_EID = 445330394188087306;
+        public const ulong Luiz_Criador_ID = 322745409074102282;
+        public const ulong PauloCanal = 438402141132947456;
     }
 }

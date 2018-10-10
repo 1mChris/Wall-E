@@ -735,7 +735,7 @@
             If deadline is reached or and error occurs, returned task is cancelled.
             </summary>
         </member>
-        <member name="M:Grpc.Core.Channel.WaitForStateChangedInternalAsync(Grpc.Core.ChannelState,System.Nullable{System.DateTime})">
+        <member name="M:Grpc.Core.Channel.TryWaitForStateChangedAsync(Grpc.Core.ChannelState,System.Nullable{System.DateTime})">
             <summary>
             Returned tasks completes once channel state has become different from
             given lastObservedState (<c>true</c> is returned) or if the wait has timed out (<c>false</c> is returned).
@@ -874,6 +874,8 @@
             <summary>
             Channel option specified when creating a channel.
             Corresponds to grpc_channel_args from grpc/grpc.h.
+            Commonly used channel option names are defined in <c>ChannelOptions</c>,
+            but any of the GRPC_ARG_* channel options names defined in grpc_types.h can be used.
             </summary>
         </member>
         <member name="T:Grpc.Core.ChannelOption.OptionType">
@@ -925,9 +927,35 @@
             Gets the string value the <c>ChannelOption</c>.
             </summary>
         </member>
+        <member name="M:Grpc.Core.ChannelOption.Equals(System.Object)">
+            <summary>
+            Determines whether the specified object is equal to the current object.
+            </summary>
+        </member>
+        <member name="M:Grpc.Core.ChannelOption.Equals(Grpc.Core.ChannelOption)">
+            <summary>
+            Determines whether the specified object is equal to the current object.
+            </summary>
+        </member>
+        <member name="M:Grpc.Core.ChannelOption.GetHashCode">
+            <summary>
+            A hash code for the current object.
+            </summary>
+        </member>
+        <member name="M:Grpc.Core.ChannelOption.op_Equality(Grpc.Core.ChannelOption,Grpc.Core.ChannelOption)">
+            <summary>
+            Equality operator.
+            </summary>
+        </member>
+        <member name="M:Grpc.Core.ChannelOption.op_Inequality(Grpc.Core.ChannelOption,Grpc.Core.ChannelOption)">
+            <summary>
+            Inequality operator.
+            </summary>
+        </member>
         <member name="T:Grpc.Core.ChannelOptions">
             <summary>
-            Defines names of supported channel options.
+            Defines names of most commonly used channel options.
+            Other supported options names can be found in grpc_types.h (GRPC_ARG_* definitions)
             </summary>
         </member>
         <member name="F:Grpc.Core.ChannelOptions.SslTargetNameOverride">
@@ -1093,7 +1121,7 @@
             less likely.
             </summary>
         </member>
-        <member name="M:Grpc.Core.ClientBase.ClientBaseConfiguration.ClientBaseConfigurationInterceptor.#ctor(System.Func{Grpc.Core.IMethod,System.String,Grpc.Core.CallOptions,System.Tuple{System.String,Grpc.Core.CallOptions}})">
+        <member name="M:Grpc.Core.ClientBase.ClientBaseConfiguration.ClientBaseConfigurationInterceptor.#ctor(System.Func{Grpc.Core.IMethod,System.String,Grpc.Core.CallOptions,Grpc.Core.ClientBase.ClientBaseConfiguration.ClientBaseConfigurationInfo})">
             <summary>
             Creates a new instance of ClientBaseConfigurationInterceptor given the specified header and host interceptor function.
             </summary>
@@ -1234,6 +1262,31 @@
         </member>
         <member name="M:Grpc.Core.DefaultCallInvoker.CreateCall``2(Grpc.Core.Method{``0,``1},System.String,Grpc.Core.CallOptions)">
             <summary>Creates call invocation details for given method.</summary>
+        </member>
+        <member name="T:Grpc.Core.DeserializationContext">
+            <summary>
+            Provides access to the payload being deserialized when deserializing messages.
+            </summary>
+        </member>
+        <member name="P:Grpc.Core.DeserializationContext.PayloadLength">
+            <summary>
+            Get the total length of the payload in bytes.
+            </summary>
+        </member>
+        <member name="M:Grpc.Core.DeserializationContext.PayloadAsNewBuffer">
+            <summary>
+            Gets the entire payload as a newly allocated byte array.
+            Once the byte array is returned, the byte array becomes owned by the caller and won't be ever accessed or reused by gRPC again.
+            NOTE: Obtaining the buffer as a newly allocated byte array is the simplest way of accessing the payload,
+            but it can have important consequences in high-performance scenarios.
+            In particular, using this method usually requires copying of the entire buffer one extra time.
+            Also, allocating a new buffer each time can put excessive pressure on GC, especially if
+            the payload is more than 86700 bytes large (which means the newly allocated buffer will be placed in LOH,
+            and LOH object can only be garbage collected via a full ("stop the world") GC run).
+            NOTE: Deserializers are expected not to call this method more than once per received message
+            (as there is no practical reason for doing so) and <c>DeserializationContext</c> implementations are free to assume so.
+            </summary>
+            <returns>byte array containing the entire payload.</returns>
         </member>
         <member name="T:Grpc.Core.GrpcEnvironment">
             <summary>
@@ -3029,7 +3082,17 @@
         </member>
         <member name="M:Grpc.Core.Marshaller`1.#ctor(System.Func{`0,System.Byte[]},System.Func{System.Byte[],`0})">
             <summary>
-            Initializes a new marshaller.
+            Initializes a new marshaller from simple serialize/deserialize functions.
+            </summary>
+            <param name="serializer">Function that will be used to serialize messages.</param>
+            <param name="deserializer">Function that will be used to deserialize messages.</param>
+        </member>
+        <member name="M:Grpc.Core.Marshaller`1.#ctor(System.Action{`0,Grpc.Core.SerializationContext},System.Func{Grpc.Core.DeserializationContext,`0})">
+            <summary>
+            Initializes a new marshaller from serialize/deserialize fuctions that can access serialization and deserialization
+            context. Compared to the simple serializer/deserializer functions, using the contextual version provides more
+            flexibility and can lead to increased efficiency (and better performance).
+            Note: This constructor is part of an experimental API that can change or be removed without any prior notice.
             </summary>
             <param name="serializer">Function that will be used to serialize messages.</param>
             <param name="deserializer">Function that will be used to deserialize messages.</param>
@@ -3044,6 +3107,18 @@
             Gets the deserializer function.
             </summary>
         </member>
+        <member name="P:Grpc.Core.Marshaller`1.ContextualSerializer">
+            <summary>
+            Gets the serializer function.
+            Note: experimental API that can change or be removed without any prior notice.
+            </summary>
+        </member>
+        <member name="P:Grpc.Core.Marshaller`1.ContextualDeserializer">
+            <summary>
+            Gets the serializer function.
+            Note: experimental API that can change or be removed without any prior notice.
+            </summary>
+        </member>
         <member name="T:Grpc.Core.Marshallers">
             <summary>
             Utilities for creating marshallers.
@@ -3052,6 +3127,12 @@
         <member name="M:Grpc.Core.Marshallers.Create``1(System.Func{``0,System.Byte[]},System.Func{System.Byte[],``0})">
             <summary>
             Creates a marshaller from specified serializer and deserializer.
+            </summary>
+        </member>
+        <member name="M:Grpc.Core.Marshallers.Create``1(System.Action{``0,Grpc.Core.SerializationContext},System.Func{Grpc.Core.DeserializationContext,``0})">
+            <summary>
+            Creates a marshaller from specified contextual serializer and deserializer.
+            Note: This method is part of an experimental API that can change or be removed without any prior notice.
             </summary>
         </member>
         <member name="P:Grpc.Core.Marshallers.StringMarshaller">
@@ -3125,12 +3206,12 @@
         </member>
         <member name="M:Grpc.Core.Metadata.Add(System.String,System.String)">
             <summary>
-            <see cref="T:IList`1"/>
+            Adds a new ASCII-valued metadata entry. See <c>Metadata.Entry</c> constructor for params.
             </summary>
         </member>
         <member name="M:Grpc.Core.Metadata.Add(System.String,System.Byte[])">
             <summary>
-            <see cref="T:IList`1"/>
+            Adds a new binary-valued metadata entry. See <c>Metadata.Entry</c> constructor for params.
             </summary>
         </member>
         <member name="M:Grpc.Core.Metadata.Clear">
@@ -3177,14 +3258,14 @@
             <summary>
             Initializes a new instance of the <see cref="T:Grpc.Core.Metadata.Entry"/> struct with a binary value.
             </summary>
-            <param name="key">Metadata key, needs to have suffix indicating a binary valued metadata entry.</param>
+            <param name="key">Metadata key. Gets converted to lowercase. Needs to have suffix indicating a binary valued metadata entry. Can only contain lowercase alphanumeric characters, underscores, hyphens and dots.</param>
             <param name="valueBytes">Value bytes.</param>
         </member>
         <member name="M:Grpc.Core.Metadata.Entry.#ctor(System.String,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Grpc.Core.Metadata.Entry"/> struct holding an ASCII value.
+            Initializes a new instance of the <see cref="T:Grpc.Core.Metadata.Entry"/> struct with an ASCII value.
             </summary>
-            <param name="key">Metadata key, must not use suffix indicating a binary valued metadata entry.</param>
+            <param name="key">Metadata key. Gets converted to lowercase. Must not use suffix indicating a binary valued metadata entry. Can only contain lowercase alphanumeric characters, underscores, hyphens and dots.</param>
             <param name="value">Value string. Only ASCII characters are allowed.</param>
         </member>
         <member name="P:Grpc.Core.Metadata.Entry.Key">
@@ -3350,6 +3431,14 @@
             <param name="status">Resulting status of a call.</param>
             <param name="trailers">Response trailing metadata.</param> 
         </member>
+        <member name="M:Grpc.Core.RpcException.#ctor(Grpc.Core.Status,Grpc.Core.Metadata,System.String)">
+            <summary>
+            Creates a new <c>RpcException</c> associated with given status, message and trailing response metadata.
+            </summary>
+            <param name="status">Resulting status of a call.</param>
+            <param name="trailers">Response trailing metadata.</param>
+            <param name="message">The exception message.</param>
+        </member>
         <member name="P:Grpc.Core.RpcException.Status">
             <summary>
             Resulting status of the call.
@@ -3366,6 +3455,19 @@
             Trailers only have meaningful content for client-side calls (in which case they represent the trailing metadata sent by the server when closing the call).
             Instances of <c>RpcException</c> thrown by the server-side part of the stack will have trailers always set to empty.
             </summary>
+        </member>
+        <member name="T:Grpc.Core.SerializationContext">
+            <summary>
+            Provides storage for payload when serializing a message.
+            </summary>
+        </member>
+        <member name="M:Grpc.Core.SerializationContext.Complete(System.Byte[])">
+            <summary>
+            Use the byte array as serialized form of current message and mark serialization process as complete.
+            Complete() can only be called once. By calling this method the caller gives up the ownership of the
+            payload which must not be accessed afterwards.
+            </summary>
+            <param name="payload">the serialized form of current message</param>
         </member>
         <member name="T:Grpc.Core.Server">
             <summary>
@@ -3602,6 +3704,65 @@
             </summary>
             <returns>The native credentials.</returns>
         </member>
+        <member name="T:Grpc.Core.SslClientCertificateRequestType">
+            <summary>
+            Modes of requesting client's SSL certificate by the server.
+            Corresponds to <c>grpc_ssl_client_certificate_request_type</c>.
+            </summary>
+        </member>
+        <member name="F:Grpc.Core.SslClientCertificateRequestType.DontRequest">
+            <summary>
+            Server does not request client certificate.
+            The certificate presented by the client is not checked by the server at
+            all. (A client may present a self signed or signed certificate or not
+            present a certificate at all and any of those option would be accepted)
+            </summary>
+        </member>
+        <member name="F:Grpc.Core.SslClientCertificateRequestType.RequestButDontVerify">
+             <summary>
+             Server requests client certificate but does not enforce that the client
+             presents a certificate.
+             If the client presents a certificate, the client authentication is left to
+             the application (the necessary metadata will be available to the
+             application via authentication context properties, see grpc_auth_context).
+             The client's key certificate pair must be valid for the SSL connection to
+             be established.
+            </summary>
+        </member>
+        <member name="F:Grpc.Core.SslClientCertificateRequestType.RequestAndVerify">
+            <summary>
+            Server requests client certificate but does not enforce that the client
+            presents a certificate.
+            If the client presents a certificate, the client authentication is done by
+            the gRPC framework. (For a successful connection the client needs to either
+            present a certificate that can be verified against the root certificate
+            configured by the server or not present a certificate at all)
+            The client's key certificate pair must be valid for the SSL connection to
+            be established.
+            </summary>
+        </member>
+        <member name="F:Grpc.Core.SslClientCertificateRequestType.RequestAndRequireButDontVerify">
+             <summary>
+             Server requests client certificate and enforces that the client presents a
+             certificate.
+             If the client presents a certificate, the client authentication is left to
+             the application (the necessary metadata will be available to the
+             application via authentication context properties, see grpc_auth_context).
+             The client's key certificate pair must be valid for the SSL connection to
+             be established.
+            </summary>
+        </member>
+        <member name="F:Grpc.Core.SslClientCertificateRequestType.RequestAndRequireAndVerify">
+            <summary>
+            Server requests client certificate and enforces that the client presents a
+            certificate.
+            The cerificate presented by the client is verified by the gRPC framework.
+            (For a successful connection the client needs to present a certificate that
+            can be verified against the root certificate configured by the server)
+            The client's key certificate pair must be valid for the SSL connection to
+            be established.
+            </summary>
+        </member>
         <member name="T:Grpc.Core.SslServerCredentials">
             <summary>
             Server-side SSL credentials.
@@ -3613,13 +3774,21 @@
             </summary>
             <param name="keyCertificatePairs">Key-certificates to use.</param>
             <param name="rootCertificates">PEM encoded client root certificates used to authenticate client.</param>
-            <param name="forceClientAuth">If true, client will be rejected unless it proves its unthenticity using against rootCertificates.</param>
+            <param name="forceClientAuth">Deprecated, use clientCertificateRequest overload instead.</param>
+        </member>
+        <member name="M:Grpc.Core.SslServerCredentials.#ctor(System.Collections.Generic.IEnumerable{Grpc.Core.KeyCertificatePair},System.String,Grpc.Core.SslClientCertificateRequestType)">
+            <summary>
+            Creates server-side SSL credentials.
+            </summary>
+            <param name="keyCertificatePairs">Key-certificates to use.</param>
+            <param name="rootCertificates">PEM encoded client root certificates used to authenticate client.</param>
+            <param name="clientCertificateRequest">Options for requesting and verifying client certificate.</param>
         </member>
         <member name="M:Grpc.Core.SslServerCredentials.#ctor(System.Collections.Generic.IEnumerable{Grpc.Core.KeyCertificatePair})">
             <summary>
             Creates server-side SSL credentials.
-            This constructor should be use if you do not wish to autheticate client
-            using client root certificates.
+            This constructor should be used if you do not wish to authenticate the client.
+            (client certificate won't be requested and checked by the server at all).
             </summary>
             <param name="keyCertificatePairs">Key-certificates to use.</param>
         </member>
@@ -3635,7 +3804,12 @@
         </member>
         <member name="P:Grpc.Core.SslServerCredentials.ForceClientAuthentication">
             <summary>
-            If true, the authenticity of client check will be enforced.
+            Deprecated. If true, the authenticity of client check will be enforced.
+            </summary>
+        </member>
+        <member name="P:Grpc.Core.SslServerCredentials.ClientCertificateRequest">
+            <summary>
+            Mode of requesting certificate from client by the server.
             </summary>
         </member>
         <member name="T:Grpc.Core.UnaryServerMethod`2">

@@ -1,6 +1,4 @@
-﻿using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,20 +19,17 @@ namespace Wall_E
         private int MaxResults { get; }
         private HttpClient Http { get; }
 
-        public YoutubeAPI(string apiKey, int maxResults)
-        {
+        public YoutubeAPI(string apiKey, int maxResults) {
             this.ApiKey = apiKey;
             this.MaxResults = maxResults < 50 ? maxResults: 50;
 
-            this.Http = new HttpClient()
-            {
+            this.Http = new HttpClient() {
                 BaseAddress = new Uri("https://www.googleapis.com/youtube/v3/search")
             };
             this.Http.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Wall-E");
         }
 
-        public async Task<IEnumerable<YouTubeSearchResult>> SearchAsync(string term)
-        {
+        public async Task<IEnumerable<YouTubeSearchResult>> SearchAsync(string term) {
             var uri = new Uri($"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults={MaxResults}&type=video&fields=items(id(videoId),snippet(title,channelTitle))&key={this.ApiKey}&q={WebUtility.UrlEncode(term)}");
 
             var json = "{}";
@@ -50,36 +45,31 @@ namespace Wall_E
         }
     }
 
-    public struct YouTubeSearchResult
-    {
+    public struct YouTubeSearchResult {
         public string Title { get; }
         public string Author { get; }
         public string Id { get; }
 
-        public YouTubeSearchResult(string title, string author, string id)
-        {
+        public YouTubeSearchResult(string title, string author, string id) {
             this.Title = title;
             this.Author = author;
             this.Id = id;
         }
     }
 
-    public struct YouTubeApiResponseItem
-    {
+    public struct YouTubeApiResponseItem {
         [JsonProperty("id")]
         public ResponseId Id { get; private set; }
 
         [JsonProperty("snippet")]
         public ResponseSnippet Snippet { get; private set; }
 
-        public struct ResponseId
-        {
+        public struct ResponseId {
             [JsonProperty("videoId")]
             public string VideoId { get; private set; }
         }
 
-        public struct ResponseSnippet
-        {
+        public struct ResponseSnippet {
             [JsonProperty("title")]
             public string Title { get; private set; }
 

@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
@@ -16,13 +15,11 @@ namespace Wall_E.Comandos
         [Command("fox-entrar")]
         [Aliases("Fox-Entrar", "FOX-ENTRAR", "FOX-Esquadrão", "fox-esquadrão", "FOX-ESQUADRÃO", "FOX-ENTRA", "Fox-Entra", "fox-entra", "F-E", "f-e")]
 
-        public async Task EntrarEsquadrãoUBGEFoxhole(CommandContext ctx, [RemainingText] string squad = "listar")
-        {
+        public async Task EntrarEsquadrãoUBGEFoxhole(CommandContext ctx, [RemainingText] string squad = "listar") {
             Dictionary<string, ulong> dicionariofoxhole = JsonConvert.DeserializeObject<Dictionary<string, ulong>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\FoxholeEsquadroes.json"));
             String TextoEsquadroes = $"";
             bool block = false;
-            dicionariofoxhole.Values.Distinct().ToList().ForEach(u =>
-            {
+            dicionariofoxhole.Values.Distinct().ToList().ForEach(u => {
                 DiscordRole r = ctx.Guild.GetRole(u);
                 TextoEsquadroes += $"/fox-entrar {dicionariofoxhole.FirstOrDefault(s => s.Value == u).Key} - {r.Mention}\n";
             });
@@ -53,47 +50,36 @@ namespace Wall_E.Comandos
                 .WithColor(cor)
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
 
-            if (squad != "listar")
-            {
+            if (squad != "listar") {
                 EmbedEntrou
                 .WithAuthor($"Tag do esquadrão foi adicionado com sucesso!", null, "https://cdn.discordapp.com/emojis/450829956063166474.png?v=1")
                 .WithDescription($"O Esquadrão `{ctx.Guild.GetRole(dicionariofoxhole[squad]).Name}` agradece a sua escolha!")
                 .WithColor(cor)
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
             }
-            if (squad == "listar")
-            {
+            if (squad == "listar") {
                 await ctx.RespondAsync(embed: EmbedListar);
             }
-            else
-            {
-                if (ctx.Member.Roles.Contains(MembroCla))
-                {
-                    ctx.Member.Roles.Distinct().ToList().ForEach(r =>
-                    {
-                        if (!block)
-                        {
-                            if (dicionariofoxhole.Values.Contains(r.Id))
-                            {
+            else {
+                if (ctx.Member.Roles.Contains(MembroCla)) {
+                    ctx.Member.Roles.Distinct().ToList().ForEach(r => {
+                        if (!block) {
+                            if (dicionariofoxhole.Values.Contains(r.Id)) {
                                 block = true;
                             }
                         }
                     });
-                    if (block)
-                    {
+                    if (block) {
                         await ctx.RespondAsync(embed: EmbedParticipa);
                     }
-                    else
-                    {
-                        if (dicionariofoxhole.Keys.Contains(squad.ToString()))
-                        {
+                    else {
+                        if (dicionariofoxhole.Keys.Contains(squad.ToString())) {
                             await ctx.Member.GrantRoleAsync(ctx.Guild.GetRole(dicionariofoxhole[squad]));
                             await ctx.RespondAsync(embed: EmbedEntrou);
                         }
                     }
                 }
-                else
-                {
+                else {
                     await ctx.RespondAsync(embed: EmbednotMembro);
                 }
             }
@@ -102,11 +88,9 @@ namespace Wall_E.Comandos
         [Command("fox-sair")]
         [Aliases("FOX-SAIR", "Fox-sair", "Fox-Sair")]
 
-        public async Task SairDoEsquadrãoFoxholeUBGE(CommandContext ctx, [RemainingText] string squad = "listar")
-        {
+        public async Task SairDoEsquadrãoFoxholeUBGE(CommandContext ctx, [RemainingText] string squad = "listar") {
             Dictionary<string, ulong> dicionariofoxhole = JsonConvert.DeserializeObject<Dictionary<string, ulong>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\FoxholeEsquadroes.json"));
-            dicionariofoxhole.Values.Distinct().ToList().ForEach(u =>
-            {
+            dicionariofoxhole.Values.Distinct().ToList().ForEach(u => {
                 DiscordRole r = ctx.Guild.GetRole(u);
             });
 
@@ -138,12 +122,10 @@ namespace Wall_E.Comandos
                 .WithDescription("Você não tem a tag: <@&352296287493947402> ou você não está em nenhum esquadrão. Ou você tem a tag de algum esquadrão, mas não tem a tag de membro do clã.\n\nPeça para alguém da <@&316723010818277376> verificar seus cargos e ver o que está acontecendo.")
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
 
-            if (!(ctx.Member.Roles.Contains(MembroCla))) 
-            {
+            if (!(ctx.Member.Roles.Contains(MembroCla))) {
                 await ctx.RespondAsync(embed: naotemocargo);
             }
-            else if (ctx.Member.Roles.Contains(MembroCla))
-            {
+            else if (ctx.Member.Roles.Contains(MembroCla)) {
                 await ctx.Member.RevokeRoleAsync(ctx.Guild.GetRole(dicionariofoxhole[squad]));
                 await ctx.RespondAsync(embed: embedesquadraosaiu);
             }
