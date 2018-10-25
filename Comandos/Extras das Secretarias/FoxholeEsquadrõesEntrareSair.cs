@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class FoxholeEsquadrõesEntrareSair
+    public class FoxholeEsquadrõesEntrareSair : BaseCommandModule
     {
         [Command("fox-entrar")]
-        [Aliases("Fox-Entrar", "FOX-ENTRAR", "FOX-Esquadrão", "fox-esquadrão", "FOX-ESQUADRÃO", "FOX-ENTRA", "Fox-Entra", "fox-entra", "F-E", "f-e")]
+        [Aliases("fox-esquadrão", "fox-entra", "f-e")]
 
         public async Task EntrarEsquadrãoUBGEFoxhole(CommandContext ctx, [RemainingText] string squad = "listar") {
             Dictionary<string, ulong> dicionariofoxhole = JsonConvert.DeserializeObject<Dictionary<string, ulong>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\FoxholeEsquadroes.json"));
@@ -32,30 +32,30 @@ namespace Wall_E.Comandos
             DiscordColor cor;
             cor = new Utilidades.Utilidades().randomColor();
             DiscordUser self = ctx.Member;
-            DiscordRole MembroCla = ctx.Guild.GetRole(352296287493947402);
+            DiscordRole MembroCla = ctx.Guild.GetRole(valores.Foxhole_Membro_do_Cla);
 
             EmbednotMembro
                 .WithDescription("Você só pode entrar em um esquadrão se já for membro do clã.\n\nPara entrar é muito fácil! Veja as instruções no canal <#416041012645855262>, e caso tenha qualquer dúvida, fale com algum membro da <@&316723010818277376>.")
                 .WithColor(cor)
                 .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             EmbedListar
                 .WithDescription($"{TextoEsquadroes}")
                 .WithColor(cor)
                 .WithAuthor("Lista dos Esquadrões do Foxhole na UBGE")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             EmbedParticipa
                 .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")
                 .WithDescription("Você ja participa de um esquadrão!")
                 .WithColor(cor)
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
 
             if (squad != "listar") {
                 EmbedEntrou
                 .WithAuthor($"Tag do esquadrão foi adicionado com sucesso!", null, "https://cdn.discordapp.com/emojis/450829956063166474.png?v=1")
                 .WithDescription($"O Esquadrão `{ctx.Guild.GetRole(dicionariofoxhole[squad]).Name}` agradece a sua escolha!")
                 .WithColor(cor)
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             }
             if (squad == "listar") {
                 await ctx.RespondAsync(embed: EmbedListar);
@@ -86,7 +86,6 @@ namespace Wall_E.Comandos
         }
 
         [Command("fox-sair")]
-        [Aliases("FOX-SAIR", "Fox-sair", "Fox-Sair")]
 
         public async Task SairDoEsquadrãoFoxholeUBGE(CommandContext ctx, [RemainingText] string squad = "listar") {
             Dictionary<string, ulong> dicionariofoxhole = JsonConvert.DeserializeObject<Dictionary<string, ulong>>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\FoxholeEsquadroes.json"));
@@ -112,15 +111,15 @@ namespace Wall_E.Comandos
             embedesquadraosaiu.WithColor(cor)
                 .WithAuthor($"Tag do esquadrão foi removida com sucesso.", null, "https://cdn.discordapp.com/emojis/450829956063166474.png?v=1")
                 .WithDescription($"Removi a tag do esquadrão `{ctx.Guild.GetRole(dicionariofoxhole[squad]).Name}` para você, se quiser entrar em outro esquadrão, digite /fox-entrar `(squad)`.\n\n**Esquadrões:**\n/fox-entrar `Formigas`\n/fox-entrar `Canivete`\n/fox-entrar `DivisãoTática`\n/fox-entrar `Tuiti`\n/fox-entrar `BlackDragon`")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             semmembrodocla.WithColor(cor)
                 .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")
                 .WithDescription($"Como isso é possível? Você não tem a tag <@&352296287493947402> e está em um esquadrão e quer sair dele... {emojo}\n\nConsiga a tag <@&352296287493947402> depois tente novamente dar o comando.")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             naotemocargo.WithColor(cor)
                 .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")
                 .WithDescription("Você não tem a tag: <@&352296287493947402> ou você não está em nenhum esquadrão. Ou você tem a tag de algum esquadrão, mas não tem a tag de membro do clã.\n\nPeça para alguém da <@&316723010818277376> verificar seus cargos e ver o que está acontecendo.")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
 
             if (!(ctx.Member.Roles.Contains(MembroCla))) {
                 await ctx.RespondAsync(embed: naotemocargo);

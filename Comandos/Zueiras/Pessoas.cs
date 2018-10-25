@@ -1,97 +1,80 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class Angelo
+    public class Angelo : BaseCommandModule
     {
-        [Command("Angelo")]
-        [Aliases("angelo")]
+        [Command("angelo")]
 
-        public async Task AngeloUBGE(CommandContext ctx)
-        {
+        public async Task AngeloUBGE(CommandContext ctx) {
             await ctx.RespondAsync("Águia da Ética :eagle:");
         }
     }
 
-    public class Léo
+    public class Léo : BaseCommandModule
     {
-        [Command("Léo")]
-        [Aliases("léo", "Leo", "leo")]
+        [Command("léo")]
+        [Aliases("leo")]
 
-        public async Task LéoDono(CommandContext ctx)
-        {
+        public async Task LéoDono(CommandContext ctx) {
             await ctx.RespondAsync("Deus da Ética\n\nhttps://www.youtube.com/user/LeoFreitas021?feature=mhee");
         }
     }
 
-    public class LuizFeliciano
+    public class LuizFeliciano : BaseCommandModule
     {
-        [Command("Luiz")]
-        [Aliases("luiz")]
+        [Command("luiz")]
 
-        public async Task LuizFelicianoUBGE(CommandContext ctx)
-        {
+        public async Task LuizFelicianoUBGE(CommandContext ctx) {
             await ctx.RespondAsync("Orador da Ética");
         }
     }
 
-    public class Nicolas
+    public class Nicolas : BaseCommandModule
     {
-        [Command("Nicolas")]
-        [Aliases("nicolas")]
+        [Command("nicolas")]
 
-        public async Task NicolasUBGE(CommandContext ctx)
-        {
+        public async Task NicolasUBGE(CommandContext ctx) {
             await ctx.RespondAsync("Revolucionário da Ética");
         }
     }
 
-    public class Paulo
+    public class Paulo : BaseCommandModule
     {
-        [Command("Paulo")]
-        [Aliases("paulo", "somai", "C#")]
+        [Command("paulo")]
+        [Aliases("somai", "c#")]
 
-        public async Task PauloUBGE(CommandContext ctx)
-        {
+        public async Task PauloUBGE(CommandContext ctx) {
             await ctx.RespondAsync("Programador da Ética, C# da Ética, Somai da Ética");
         }
     }
 
-    public class Wysel
+    public class Wysel : BaseCommandModule
     {
-        [Command("Wysel")]
-        [Aliases("wysel")]
+        [Command("wysel")]
 
-        public async Task WyselUBGE(CommandContext ctx)
-        {
+        public async Task WyselUBGE(CommandContext ctx) {
             await ctx.RespondAsync("Aviãozinho da Ética :airplane_small:");
         }
     }
 
-    public class LuizWall_E
+    public class LuizWall_E : BaseCommandModule
     {
-        [Command("LuizW")]
-        [Aliases("luizw", "luizão", "luizao")]
+        [Command("luizw")]
+        [Aliases( "luizão", "luizao")]
 
-        public async Task LuizdoWallE(CommandContext ctx)
-        {
+        public async Task LuizdoWallE(CommandContext ctx) {
             await ctx.RespondAsync("Compartilhador da Ética");
         }
     }
 
-    public class ThomasdaUBGE
+    public class ThomasdaUBGE : BaseCommandModule
     {
-        [Command("Thomas")]
-        [Aliases("thomas", "THOMAS")]
+        [Command("thomas")]
 
-        public async Task ThomasUBGE(CommandContext ctx)
-        {
+        public async Task ThomasUBGE(CommandContext ctx) {
             await ctx.RespondAsync("Cachorro do Photoshop");
         }
     }

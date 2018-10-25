@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class Bhaskara
+    public class Bhaskara : BaseCommandModule
     {
-        [Command("Bhaskara")]
-        [Aliases("bhaskara", "BHASKARA", "B", "b")]
+        [Command("bhaskara")]
+        [Aliases("b")]
 
         public async Task BhaskaraMatemática(CommandContext ctx, double a, double b, double c) {
             double delta = (b * b) - (4 * a * c);
@@ -30,7 +30,7 @@ namespace Wall_E.Comandos
                 .AddField("X'", x1.ToString(), true)
                 .AddField("X''", x2.ToString(), true)
                 .WithColor(cor)
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             await ctx.RespondAsync(null, false, embed);
         }
     }

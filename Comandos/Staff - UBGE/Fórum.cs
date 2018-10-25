@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class Fórum
+    public class Fórum : BaseCommandModule
     {
-        [Command("Forum")]
-        [Aliases("forum")]
+        [Command("forum")]
+        [Aliases("fórum")]
 
         public async Task FórumUBGE(CommandContext ctx) {
             await ctx.RespondAsync("https://www.ubge.org/forum/");

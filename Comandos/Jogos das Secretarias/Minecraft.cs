@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class Minecraft
+    public class Minecraft : BaseCommandModule
     {
-        [Command("Minecraft")]
-        [Aliases("minecraft", "mine", "Mine", "maine", "Maine", "Minicrefiti", "minicrefiti", "MINECRAFT")]
+        [Command("minecraft")]
 
         public async Task MinecraftUBGE(CommandContext ctx) {
             await ctx.TriggerTypingAsync();
@@ -38,7 +37,7 @@ namespace Wall_E.Comandos
             embed.WithColor(cor)
                 .WithDescription($"**Minecraft**: é um jogo eletrônico tipo sandbox e independente de mundo aberto que permite a construção usando blocos (cubos) dos quais o mundo é feito. Foi criado por Markus \"Notch\" Persson. O desenvolvimento de Minecraft começou por volta do dia 10 de maio de 2009. A jogabilidade foi baseada nos jogos Dwarf Fortress, Dungeon Keeper e Infiniminer. Foi vencedor do prêmio VGA 2011 de jogos independentes.\n\nMinecraft é um jogo basicamente feito de blocos, tendo as paisagens e a maioria de seus objetos compostos por eles, e permitindo que estes sejam removidos e recolocados em outros lugares para criar construções, empilhando-os. Além da mecânica de mineração e coleta de recursos para construção, há no jogo mistura de sobrevivência, e exploração.\n\nEle se passa em mundos infinitamente gerados de terreno aberto, montanhas geladas, rios pantanosos, vastas pastagens e muito mais, minecraft é repleto de segredos, maravilhas e perigos.\n\n**Secretaria**:\n{names}\n\n**Link para Download**: https://minecraft.net/pt-br/?ref=m\n*(O jogo é pago)*")
                 .WithImageUrl("https://cdn.discordapp.com/attachments/443159405991821323/468136615248920586/huebr.png")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             await ctx.RespondAsync(embed: embed);
         }
     }

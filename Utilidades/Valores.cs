@@ -33,5 +33,7 @@ namespace Wall_E.Comandos
         public const ulong Wall_EID = 445330394188087306;
         public const ulong Luiz_Criador_ID = 322745409074102282;
         public const ulong PauloCanal = 438402141132947456;
+        public const ulong Foxhole_Membro_do_Cla = 497117489084235847;
+        public const string Versao = "2.0.0";
     }
 }

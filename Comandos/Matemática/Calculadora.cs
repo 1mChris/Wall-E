@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Wall_E
 {
-    public class Calculadora
+    public class Calculadora : BaseCommandModule
     {
-        [Command("Soma")]
-        [Aliases("soma", "SOMA", "Somar", "somar", "SOMAR", "som", "+")]
+        [Command("soma")]
+        [Aliases("somar", "+", "som")]
 
         public async Task CalculadoraWall_ESoma(CommandContext ctx, int numero1, int numero2) {
             int resultado;
@@ -15,8 +15,8 @@ namespace Wall_E
             await ctx.RespondAsync($"{ctx.Member.Mention} **|** **Resultado =** `{resultado.ToString()}`");
         }
 
-        [Command("Subtracacao")]
-        [Aliases("subtracacao", "sub", "SUBTRACAO", "Subtrair", "subtrair", "SUBTRAIR", "Subtração", "SUBTRAÇÃO", "subtração", "-")]
+        [Command("subtracacao")]
+        [Aliases("subtrair", "subtração", "-", "sub")]
 
         public async Task CalculadoraWall_ESubtracao(CommandContext ctx, int numero1, int numero2) {
             int resultado;
@@ -24,8 +24,8 @@ namespace Wall_E
             await ctx.RespondAsync($"{ctx.Member.Mention} **|** **Resultado =** `{resultado.ToString()}`");
         }
 
-        [Command("Divisao")]
-        [Aliases("divisao", "DIVISAO", "Div", "div", "Dividir", "dividir", "Divisão", "divisão", "DIVISÃO", "/")]
+        [Command("divisao")]
+        [Aliases("div", "dividir", "divisão", "/")]
 
         public async Task CalculadoraWall_EDivisao(CommandContext ctx, int numero1, int numero2) {
             int resultado;
@@ -33,8 +33,8 @@ namespace Wall_E
             await ctx.RespondAsync($"{ctx.Member.Mention} **|** **Resultado =** `{resultado.ToString()}`");
         }
 
-        [Command("Multiplicar")]
-        [Aliases("multiplicar", "MULTIPLICAR", "Mul", "MUL", "mul", ".")]
+        [Command("multiplicar")]
+        [Aliases("mul", ".")]
 
         public async Task CalculadoraWall_EMULTIPLICACAO(CommandContext ctx, int numero1, int numero2) {
             int resultado;

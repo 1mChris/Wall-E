@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class IntroduçãoDiscord
+    public class IntroduçãoDiscord : BaseCommandModule
     {
-        [Command("Discord")]
-        [Aliases("discord")]
+        [Command("discord")]
 
         public async Task IntroDiscord(CommandContext ctx) {
             await ctx.RespondAsync("https://youtu.be/8aydobOKeA0");

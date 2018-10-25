@@ -5,10 +5,10 @@ using Wall_E.Comandos;
 
 namespace Wall_E.Bot
 {
-    public class IgnorarComandos_Só_esses_
+    public class IgnorarComandos_Só_esses_ : BaseCommandModule
     {
         [Command("summon")]
-        [Aliases("revoke", "block", "lock", "unlock", "name", "REVOKE", "BLOCK", "LOCK", "UNLOCK", "SUMMON", "Revoke", "Block", "Lock", "Unlock", "Summon", "avatar", "Avatar", "AVATAR")]
+        [Aliases("revoke", "block", "lock", "unlock", "name", "avatar")]
         
         public async Task IgnorarComandos(CommandContext ctx) {
             var guild = await ctx.Client.GetGuildAsync(valores.IdLogWall_E);

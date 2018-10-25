@@ -1,29 +1,22 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class Bot_se_passa_por_pessoa
+    public class Bot_se_passa_por_pessoa : BaseCommandModule
     {
-        [Command("Say")]
-        [Aliases("Talk", "Fale", "SAY", "say", "talk", "TALK", "FALE", "fale")]
+        [Command("say")]
+        [Aliases("talk", "fale")]
 
-        public async Task FalaPessoaTexto(CommandContext ctx, DiscordChannel canal = null, [RemainingText] string textopessoa = null)
-        {
+        public async Task FalaPessoaTexto(CommandContext ctx, DiscordChannel canal = null, [RemainingText] string textopessoa = null) {
             await canal.SendMessageAsync(textopessoa);
         }
 
-        [Command("Embed")]
-        [Aliases("EMBED", "embed")]
+        [Command("embed")]
 
-        public async Task FalaEmbedPessoa(CommandContext ctx, [RemainingText] string textopessoaembed = null)
-        {
+        public async Task FalaEmbedPessoa(CommandContext ctx, [RemainingText] string textopessoaembed = null) {
             var embed = new DiscordEmbedBuilder();
             DiscordColor cor;
             cor = new Utilidades.Utilidades().randomColor();

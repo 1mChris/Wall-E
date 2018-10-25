@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class Criador
+    public class Criador : BaseCommandModule
     {
-        [Command("Criador")]
-        [Aliases("criador", "progenitor", "Progenitor", "Desenvolvedor", "desenvolvedor", "CRIADOR")]
+        [Command("criador")]
 
         public async Task Umavidaagradável(CommandContext ctx) {
             DiscordColor cor;

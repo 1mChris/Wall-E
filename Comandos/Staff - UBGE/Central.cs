@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class Central
+    public class Central : BaseCommandModule
     {
-        [Command("Central")]
-        [Aliases("central")]
+        [Command("central")]
 
         public async Task CentralFormulários(CommandContext ctx) {
             await ctx.RespondAsync("https://goo.gl/forms/zssTOBNen8X9wzk12");

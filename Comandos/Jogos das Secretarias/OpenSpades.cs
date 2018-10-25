@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class OpenSpades
+    public class OpenSpades : BaseCommandModule
     {
-        [Command("OpenSpades")]
-        [Aliases("openspades", "op", "OPENSPADES")]
+        [Command("openspades")]
+        [Aliases("op")]
 
         public async Task OSUBGE(CommandContext ctx) {
             await ctx.TriggerTypingAsync();
@@ -38,7 +38,7 @@ namespace Wall_E.Comandos
             embed.WithColor(cor)
                 .WithDescription($"**OpenSpades**: É um aperfeiçoamento do Ace of Spades 0.75, que é um jogo de tiro em primeira pessoa criado por Ben Aksoy, com terreno completamente destrutível e vários modos de jogo (incluindo o bem conhecido Capture the Flag) criado pela comunidade.\n\nReflita... :thinking: -> Minecraft + Battlefield + Call of Duty = OpenSpades\n\n**Secretaria**:\n{names}\n\n**IP**: Arena: aos://3888437939:32888\n      TOW: aos://3888437939:32887\n\n**Link para Download**: https://www.buildandshoot.com/download/\n*(O site contêm também uma versão mais leve do OpenSpades, essa versão é recomendada para PCs mais fracos, e o OpenSpades é de graça)*")
                 .WithImageUrl("https://cdn.discordapp.com/attachments/443159405991821323/468136520453455873/openspades.png")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             await ctx.RespondAsync(embed: embed);
         }
     }

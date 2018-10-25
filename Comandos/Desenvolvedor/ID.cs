@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class ID
+    public class ID : BaseCommandModule
     {
-        [Command("ID")]
-        [Aliases("id")]
+        [Command("id")]
 
         public async Task IDdoWallE(CommandContext ctx) {
             await ctx.RespondAsync("Meu ID é: 445330394188087306");

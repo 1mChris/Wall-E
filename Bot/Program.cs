@@ -1,80 +1,88 @@
 ﻿using Autofac;
-using AutoUpdaterDotNET;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Net.WebSocket;
-using DSharpPlus.VoiceNext;
-using DSharpPlus.VoiceNext.Codec;
 using DSharpPlus.EventArgs;
+using DSharpPlus.Lavalink;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 using Wall_E.Comandos;
+using Wall_E.Música;
+using Wall_E.Bot;
 
 namespace Wall_E
 {
     public class Wall_E {
-        public static IContainer Services {
-            get; private set;
-        }
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
 
-        public static Wall_E Instance {
-            get; private set; 
-        }
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        public Config Config {
-            get; private set;
-        }
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
 
-        public CommandsNextModule CommandsNext {
-            get; set;
-        }
+        public static IContainer Services { get; private set; }
 
-        public VoiceNextClient Voice {
-            get; set;
-        }
+        public static Wall_E Instance { get; private set; }
 
-        public InteractivityModule Interactivity {
-            get; private set;
-        }
+        public Config Config { get; private set; }
+
+        public CommandsNextExtension CommandsNext { get; set; }
+
+        public LavalinkExtension Lavalink { get; set; }
+
+        public InteractivityExtension Interactivity { get; private set; }
 
         public static void Main(string[] args) {
+            IntPtr ptrConsole = GetConsoleWindow();
+            ShowWindow(ptrConsole, SW_HIDE);
+
+            Process.Start("start.lnk");
+
             Console.Title = "Wall-E da Ética online!";
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("[Wall-E] [DSharpPlus] [Discord] Bem-Vindo Luiz!");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[Wall-E] Versão: 1.9.0");
-            Console.ResetColor();
+
             Instance = new Wall_E();
             Instance.StartAsync().GetAwaiter().GetResult();
         }
 
-        public Wall_E() {       
+        public Wall_E() {
             Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\Config.json"));
 
-            Discord = new DiscordClient(new DiscordConfiguration {           
+            Discord = new DiscordClient(new DiscordConfiguration {
                 Token = Config.Token,
                 UseInternalLogHandler = true,
                 TokenType = Config.TokenType,
+                AutoReconnect = true,
+                ReconnectIndefinitely = true,
+                GatewayCompressionLevel = GatewayCompressionLevel.Stream,
+                LargeThreshold = 250,
+                LogLevel = LogLevel.Info,
+                WebSocketClientFactory = WebSocket4NetCoreClient.CreateNew,
             });
 
-            var vcfg = new VoiceNextConfiguration {
-                VoiceApplication = VoiceApplication.Music
-            };
+            Lavalink = Discord.UseLavalink();
 
-            this.Voice = this.Discord.UseVoiceNext(vcfg);
-
-            Discord.SetWebSocketClient<WebSocket4NetCoreClient>();
             CommandsNext = Discord.UseCommandsNext(new CommandsNextConfiguration {
                 EnableDms = Config.EnableDms,
                 EnableMentionPrefix = true,
                 EnableDefaultHelp = false,
-                StringPrefix = Config.Prefix
+                StringPrefixes = new[] { Config.Prefix },
+
+                Services = new ServiceCollection()
+                    .AddSingleton<CSPRNG>()
+                    .AddSingleton(new MusicService(Discord))
+                    .BuildServiceProvider(true)
             });
 
             DiscordChannel Log = Discord.GetChannelAsync(valores.IdLogWall_E).Result;
@@ -83,29 +91,34 @@ namespace Wall_E
                 var ctx = args.Context;
 
                 CommandNotFoundException cntfe = (CommandNotFoundException)args.Exception;
-                if (!String.IsNullOrEmpty(cntfe.Command)) {              
-                    if (iterate == 1) {                   
-                        await args.Context.RespondAsync($"Nononononononono, esse comando: `{Config.Prefix}{cntfe.Command}` também non ecziste!");
+                if (!String.IsNullOrEmpty(cntfe.CommandName)) {
+                    if (iterate == 1) {
+                        await args.Context.RespondAsync($"Nononononononono, esse comando: `{Config.Prefix}{cntfe.CommandName}` também non ecziste!");
                         iterate = 0;
                     }
-                    else {                   
-                        await args.Context.RespondAsync($"Padre Quevedo te alerta, esse comando: `{Config.Prefix}{cntfe.Command}` non ecziste!");
+                    else {
+                        await args.Context.RespondAsync($"Padre Quevedo te alerta, esse comando: `{Config.Prefix}{cntfe.CommandName}` non ecziste!");
                         iterate++;
                     }
                     Console.WriteLine(args.Exception.ToString());
-                    await Log.SendMessageAsync($"O membro `{ctx.Member.DisplayName}` executou um comando inexistente: `{Config.Prefix}{cntfe.Command}`.\nChat: `{ctx.Channel}`\nDia e Hora: `{DateTime.Now}`\n-------------------------------------------------------\n");
+                    await Log.SendMessageAsync($"O membro `{ctx.Member.DisplayName}` executou um comando inexistente: `{Config.Prefix}{cntfe.CommandName}`.\nChat: `{ctx.Channel}`\nDia e Hora: `{DateTime.Now}`\n-------------------------------------------------------\n");
                 }
             };
 
             Discord.Ready += DiscordClient_Ready;
 
-            async Task DiscordClient_Ready(ReadyEventArgs e) {            
-                await Discord.UpdateStatusAsync(new DiscordGame("no Discord da UBGE!"));
+            async Task DiscordClient_Ready(ReadyEventArgs e) {
+                await Discord.UpdateStatusAsync(new DiscordActivity("no Discord da UBGE!"));
                 await Log.SendMessageAsync($"**Wall-E da Ética online!**\nLigado às: ``{DateTime.Now}``");
 
-                DiscordChannel Paulo = Discord.GetChannelAsync(valores.PauloCanal).Result;
                 DiscordChannel Secretaria = Discord.GetChannelAsync(valores.secretaria_openspades_chat).Result;
-                await Paulo.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/irc`` ?\nObrigado pela atenção!");
+                //await Secretaria.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/os irc`` ?\n\nObrigado :grin:");
+
+                //DiscordChannel Secretaria = await Discord.GetChannelAsync(valores.secretaria_openspades_chat);
+                //var CN = Discord.GetCommandsNext();
+                //var cmd = CommandsNext.FindCommand("/ping", out var args);
+                //CN.CreateFakeContext(Discord.CurrentUser, Secretaria, "/ping", Config.Prefix, cmd, null);
+                //Console.WriteLine("A");
 
                 //DateTime DT = new DateTime();
                 //DiscordChannel Secretaria = Discord.GetChannelAsync(valores.secretaria_openspades_chat).Result;
@@ -146,19 +159,20 @@ namespace Wall_E
             CommandsNext.RegisterCommands(Assembly.GetEntryAssembly());
 
             Interactivity = Discord.UseInteractivity(new InteractivityConfiguration {
-                PaginationBehaviour = TimeoutBehaviour.Delete,
+                PaginationBehavior = TimeoutBehaviour.DeleteMessage,
                 PaginationTimeout = TimeSpan.FromMinutes(3),
                 Timeout = TimeSpan.FromMinutes(3)
             });
         }
 
-        public DiscordClient Discord {
-            get; set;
-        }
+        public DiscordClient Discord { get; set; }
 
         public async Task StartAsync() {
+            await Task.Delay(20000);
             await Discord.ConnectAsync();
-            await Task.Delay(-1);
+
+            Application.EnableVisualStyles();
+            Application.Run(new WinFormWall_E());
         }
     }
 }

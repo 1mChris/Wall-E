@@ -4,18 +4,18 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class XVerYVer
+    public class XVerYVer : BaseCommandModule
     {
-        [Command("XVértice")]
-        [Aliases("XVÉRTICE", "xvértice", "xvertice", "XVertice", "XVERTICE", "XV", "Xv", "xv")]
+        [Command("xvértice")]
+        [Aliases("xvertice", "xv")]
 
         public async Task XVértice(CommandContext ctx, double b, double a) {
             double xver = (-b / 2 * a);
             await ctx.RespondAsync($"{ctx.Member.Mention} **|** **X do Vértice:** ``{xver.ToString()}``");
         }
 
-        [Command("YVértice")]
-        [Aliases("YVÉRTICE", "yvértice", "yvertice", "YVertice", "YVERTICE", "YV", "Yv", "yv")]
+        [Command("yvértice")]
+        [Aliases("yvertice", "yv")]
 
         public async Task YVértice(CommandContext ctx, double delta, double a) {
             double xver = (-delta / 4 * a);

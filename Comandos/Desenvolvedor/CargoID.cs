@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 namespace Wall_E.Comandos
 {
     [Group("dev")]
-    [Aliases("Dev", "DEV")]
-    public class roleinfo
+
+    public class roleinfo : BaseCommandModule
     {
-        [Command("Roleinfo")]
-        [Aliases("roleinfo", "ROLEINFO")]
+        [Command("roleinfo")]
 
         public async Task ROLEID(CommandContext ctx, DiscordRole role) {
             var user = ctx.Member;
@@ -22,7 +21,7 @@ namespace Wall_E.Comandos
                 .AddField("Criado por Bot: ", role.IsManaged.ToString(), true)
                 .WithColor(role.Color)
                 .WithAuthor("Dados do cargo: " + role.Name)
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url:self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl:self.AvatarUrl);
 
             if (user.Id == 322745409074102282 || user.Id == 218752828372549633) {
                 await canal.SendMessageAsync(embed: embed);

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos.Desenvolvedor
 {
-    public class DesligarBOT
+    public class DesligarBOT : BaseCommandModule
     {
-        [Command("DT"), RequireRolesAttribute("Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
-        [Aliases("Dt", "dt", "dT")]
+        [Command("desligartempo"), RequireRoles(RoleCheckMode.Any, "Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
 
         public async Task DesligarPorTempo(CommandContext ctx, String tempo = null) {
             DiscordColor cor;
@@ -22,7 +21,7 @@ namespace Wall_E.Comandos.Desenvolvedor
                 temponull.WithColor(cor)
                     .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")
                     .WithDescription("Diga o tempo que devo ficar em Stand By!")
-                    .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                    .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
                 await ctx.RespondAsync(embed: temponull);
             }
 
@@ -49,11 +48,11 @@ namespace Wall_E.Comandos.Desenvolvedor
             desligado.WithColor(cor)
                 .WithAuthor("Desliguei temporariamente, voltarei daqui a pouco", null, "https://cdn.discordapp.com/attachments/438402141132947456/497254644062355466/Wall-ELogo.png")
                 .WithDescription($"**Me religarei daqui à: {tempo}**")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             religado.WithColor(cor)
                 .WithAuthor("Voltei à ativa!", null, "https://cdn.discordapp.com/attachments/438402141132947456/497254644062355466/Wall-ELogo.png")
                 .WithDescription("**Estou devolta e em perfeito funcionamento, podem usar meus comandos a vontade!**")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, icon_url: self.AvatarUrl);
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             #endregion
 
             await ctx.RespondAsync(embed: desligado);
@@ -63,8 +62,7 @@ namespace Wall_E.Comandos.Desenvolvedor
             await ctx.RespondAsync(embed: religado);
         }
 
-        [Command("Desligar"), RequireRolesAttribute("Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
-        [Aliases("desligar", "DESLIGAR", "OFF", "Off", "off")]
+        [Command("desligar"), RequireRoles(RoleCheckMode.SpecifiedOnly, "Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
 
         public async Task Desligar(CommandContext ctx) {
             await ctx.Client.DisconnectAsync();

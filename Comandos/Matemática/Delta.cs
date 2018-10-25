@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
 {
-    public class Delta
+    public class Delta : BaseCommandModule
     {
-        [Command("Delta")]
-        [Aliases("delta", "DELTA", "D", "d")]
+        [Command("delta")]
+        [Aliases("d")]
 
         public async Task DeltaMatemática(CommandContext ctx, double b, double a, double c) {
             double delta = (b * b) - (4 * a * c);
