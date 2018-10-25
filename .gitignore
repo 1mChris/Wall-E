@@ -261,3 +261,5 @@ __pycache__/
 *.pyc
 bin/Debug/Config.json
 bin/Debug/Config.json
+*.json
+bin/Debug/Config.json
