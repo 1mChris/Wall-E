@@ -1,5 +1,9 @@
 ﻿{
+<<<<<<< HEAD
 	"token": "NDQ1MzMwMzk0MTg4MDg3MzA2.DrKC4Q.RwuqzjV9wU6L3AQDxYVwHNcsRFA",
+=======
+	"token": "Pensou que ia ter algo aqui num foi? V o c ê  f o i  T a p e a d o",
+>>>>>>> b1d0ddc6ff5bf5226deca8306eaabc492f7682ed
 	"token_type": 1,
 	"prefix": "/",
 	"enable_dms": false
