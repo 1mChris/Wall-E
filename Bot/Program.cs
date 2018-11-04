@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using AutoUpdaterDotNET;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Exceptions;
@@ -14,7 +13,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Timers;
 using Wall_E.Comandos;
 using Wall_E.Música;
 
@@ -41,17 +39,6 @@ namespace Wall_E
             Console.WriteLine("[Wall-E] Versão: v2.1.0");
             Console.ResetColor();
 
-            AutoUpdater.CheckForUpdateEvent += AutoUpdaterCheck;
-            AutoUpdater.Start("https://raw.githubusercontent.com/LuizFernandoNB/Wall-E/master/version.xml");
-
-            Timer Timer = new Timer {
-                Interval = 2 * 60 * 1000
-            };
-
-            Timer.Elapsed += delegate {
-                AutoUpdater.Start("https://raw.githubusercontent.com/LuizFernandoNB/Wall-E/master/version.xml");
-            };
-
             Instance = new Wall_E();
             Instance.StartAsync().GetAwaiter().GetResult();
         }
@@ -67,7 +54,7 @@ namespace Wall_E
                 ReconnectIndefinitely = true,
                 GatewayCompressionLevel = GatewayCompressionLevel.Stream,
                 LargeThreshold = 250,
-                LogLevel = LogLevel.Info,
+                LogLevel = LogLevel.Debug,
                 WebSocketClientFactory = WebSocket4NetCoreClient.CreateNew,
             });
 
@@ -117,7 +104,7 @@ namespace Wall_E
                 DiscordChannel Secretaria = Discord.GetChannelAsync(valores.secretaria_openspades_chat).Result;
                 DiscordChannel Paulo = Discord.GetChannelAsync(valores.PauloCanal).Result;
                 //await Secretaria.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/os irc`` ?\n\nObrigado :grin:");
-                //await Paulo.SendMessageAsync($"Tenho: **{Discord.GetCommandsNext().RegisteredCommands.Count}** comandos!");              
+                await Paulo.SendMessageAsync($"Tenho: **{Discord.GetCommandsNext().RegisteredCommands.Count}** comandos!");              
             }
 
             CommandsNext.RegisterCommands(Assembly.GetEntryAssembly());
@@ -130,29 +117,6 @@ namespace Wall_E
         }
 
         public DiscordClient Discord { get; set; }
-
-        private static void AutoUpdaterCheck(UpdateInfoEventArgs UIEA) {
-            if (UIEA != null) {
-                if (UIEA.IsUpdateAvailable) {
-                    Console.WriteLine($"[Wall-E] [Updater] Uma atualização está disponível! Versão atual: {UIEA.InstalledVersion} | Nova versão: {UIEA.CurrentVersion}");
-
-                    try {
-                        if (AutoUpdater.DownloadUpdate()) {
-                            Environment.Exit(-1);
-                        }
-                    }
-                    catch (Exception ex) {
-                        Console.WriteLine($"[Wall-E] [Updater] Aconteceu um erro na atualização do bot ->\n{ex.ToString()}");
-                    }
-                }
-                else {
-                    Console.WriteLine("[Wall-E] [Updater] O bot está na versão mais recente!");
-                }
-            }
-            else {
-                Console.WriteLine("[Wall-E] [Updater] Ocorreu um erro na conexão!");
-            }
-        }
 
         public async Task StartAsync() {
             await Discord.ConnectAsync();
