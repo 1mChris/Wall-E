@@ -312,3 +312,7 @@ C:\Users\Luiz\Desktop\Wall-E\Wall-E\obj\Debug\Wall-E.csproj.GenerateResource.cac
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\obj\Debug\Wall_E.Properties.Resources.resources
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\System.Data.SqlServerCe.dll
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\PT\System.Data.SqlServerCe.resources.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\AutoUpdater.NET.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\AutoUpdater.NET.pdb
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\AutoUpdater.NET.xml
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\Newtonsoft.Json.pdb

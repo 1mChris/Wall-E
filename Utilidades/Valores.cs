@@ -1,11 +1,4 @@
-﻿using DSharpPlus.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wall_E.Comandos
+﻿namespace Wall_E.Comandos
 {
     public class valores {
         public const ulong IdFormigas = 457713875932938251;

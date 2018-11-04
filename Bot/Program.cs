@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using AutoUpdaterDotNET;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Exceptions;
@@ -13,11 +14,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
+using System.Timers;
 using Wall_E.Comandos;
 using Wall_E.Música;
-using Wall_E.Bot;
 
 namespace Wall_E
 {
@@ -41,6 +40,17 @@ namespace Wall_E
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("[Wall-E] Versão: v2.1.0");
             Console.ResetColor();
+
+            AutoUpdater.CheckForUpdateEvent += AutoUpdaterCheck;
+            AutoUpdater.Start("https://raw.githubusercontent.com/LuizFernandoNB/Wall-E/master/version.xml");
+
+            Timer Timer = new Timer {
+                Interval = 2 * 60 * 1000
+            };
+
+            Timer.Elapsed += delegate {
+                AutoUpdater.Start("https://raw.githubusercontent.com/LuizFernandoNB/Wall-E/master/version.xml");
+            };
 
             Instance = new Wall_E();
             Instance.StartAsync().GetAwaiter().GetResult();
@@ -98,54 +108,16 @@ namespace Wall_E
             Discord.Ready += DiscordClient_Ready;
 
             async Task DiscordClient_Ready(ReadyEventArgs e) {
+                await Discord.UpdateStatusAsync(new DiscordActivity("no Discord da UBGE!"));
                 await Log.SendMessageAsync($"**Wall-E da Ética online!**\nLigado às: ``{DateTime.Now}``");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Wall-E] [DSharpPlus] Meu ping é: {Discord.Ping}ms!");
                 Console.ResetColor();
 
                 DiscordChannel Secretaria = Discord.GetChannelAsync(valores.secretaria_openspades_chat).Result;
-                await Secretaria.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/os irc`` ?\n\nObrigado :grin:");
-
-                //DiscordChannel Secretaria = await Discord.GetChannelAsync(valores.secretaria_openspades_chat);
-                //var CN = Discord.GetCommandsNext();
-                //var cmd = CommandsNext.FindCommand("/ping", out var args);
-                //CN.CreateFakeContext(Discord.CurrentUser, Secretaria, "/ping", Config.Prefix, cmd, null);
-                //Console.WriteLine("A");
-
-                //DateTime DT = new DateTime();
-                //DiscordChannel Secretaria = Discord.GetChannelAsync(valores.secretaria_openspades_chat).Result;
-
-                //if(DT.DayOfWeek == DayOfWeek.Friday)
-                //{
-                //var Semanal = System.Diagnostics.Process.Start("OpenSpadesSemanal.exe");
-                //Console.ForegroundColor = ConsoleColor.Green;
-                //Console.WriteLine("[Wall-E] [UBGE-Semanal] AEEEEEEEEEEEEEOOOO Domingão pola! Liguei o semanal!");
-                //Console.ResetColor();
-                //await Secretaria.SendMessageAsync("[Wall-E] [UBGE-Semanal] Liguei o servidor Semanal! Hoje é sexta-feira calaleo, *Dia de beber (e jogar)*");
-                //}
-                //else if (DT.DayOfWeek == DayOfWeek.Sunday)
-                //{
-                //var Semanal = System.Diagnostics.Process.Start("OpenSpadesSemanal.exe");
-                //Console.ForegroundColor = ConsoleColor.Green;
-                //Console.WriteLine("[Wall-E] [UBGE-Semanal] AEEEEEEEEEEEEEOOOO Domingão pola! Liguei o semanal!");
-                //Console.ResetColor();
-                //await Secretaria.SendMessageAsync("[Wall-E] [UBGE-Semanal] Liguei o servidor: ``Semanal``! Hoje é domningo calaleo, *Dia de assitir o Faustão*");
-                //}
-                //else if (DT.DayOfWeek == DayOfWeek.Saturday)
-                //{
-                //var Semanal = System.Diagnostics.Process.Start("OpenSpadesSemanal.exe");
-                //Console.ForegroundColor = ConsoleColor.Green;
-                //Console.WriteLine("[Wall-E] [UBGE-Semanal] AEEEEEEEEEEEEEOOOO Hoje é sábado pola! Liguei o semanal!");
-                //Console.ResetColor();
-                //await Secretaria.SendMessageAsync("[Wall-E] [UBGE-Semanal] Liguei o servidor: ``Semanal``! Hoje é sábado calaleo, SILVIO SANTOS VEM AI, OLE OLE OLÁ :musical_note:");
-                //}
-                //else
-                //{
-                //Console.ForegroundColor = ConsoleColor.Red;
-                //Console.WriteLine("[Wall-E] [UBGE-Semanal] Hoje não é sexta-feira :/");
-                //Console.ResetColor();
-                //await Log.SendMessageAsync("**[Wall-E] [UBGE-Semanal]** **|** Hoje não é sexta-feira :/");
-                //}
+                DiscordChannel Paulo = Discord.GetChannelAsync(valores.PauloCanal).Result;
+                //await Secretaria.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/os irc`` ?\n\nObrigado :grin:");
+                //await Paulo.SendMessageAsync($"Tenho: **{Discord.GetCommandsNext().RegisteredCommands.Count}** comandos!");              
             }
 
             CommandsNext.RegisterCommands(Assembly.GetEntryAssembly());
@@ -155,27 +127,30 @@ namespace Wall_E
                 PaginationTimeout = TimeSpan.FromMinutes(3),
                 Timeout = TimeSpan.FromMinutes(3)
             });
-
-            Status(Discord);
         }
 
         public DiscordClient Discord { get; set; }
 
-        private async Task Status(DiscordClient discord) {
-            var utils = new Utilidades.Utilidades();
-            var mins = utils.getTime("30s");
-            var ubge = await discord.GetGuildAsync(194925640888221698);
-            var qtd = await ubge.GetAllMembersAsync();
+        private static void AutoUpdaterCheck(UpdateInfoEventArgs UIEA) {
+            if (UIEA != null) {
+                if (UIEA.IsUpdateAvailable) {
+                    Console.WriteLine($"[Wall-E] [Updater] Uma atualização está disponível! Versão atual: {UIEA.InstalledVersion} | Nova versão: {UIEA.CurrentVersion}");
 
-            bool minWaiter = false;
-
-            while (!minWaiter) {
-                await discord.UpdateStatusAsync(new DiscordActivity($"no Discord da UBGE! - {qtd.Count} membros!"));
-                utils.Wait(mins);
-                await discord.UpdateStatusAsync(new DiscordActivity($"{discord.GetCommandsNext().RegisteredCommands.Count} comandos!"));
-                utils.Wait(mins);
-                await discord.UpdateStatusAsync(new DiscordActivity($"Meu criador é o @[UBGE] Luiz#8721!"));
-                utils.Wait(mins);
+                    try {
+                        if (AutoUpdater.DownloadUpdate()) {
+                            Environment.Exit(-1);
+                        }
+                    }
+                    catch (Exception ex) {
+                        Console.WriteLine($"[Wall-E] [Updater] Aconteceu um erro na atualização do bot ->\n{ex.ToString()}");
+                    }
+                }
+                else {
+                    Console.WriteLine("[Wall-E] [Updater] O bot está na versão mais recente!");
+                }
+            }
+            else {
+                Console.WriteLine("[Wall-E] [Updater] Ocorreu um erro na conexão!");
             }
         }
 
