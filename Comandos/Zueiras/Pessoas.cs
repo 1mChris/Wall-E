@@ -47,7 +47,7 @@ namespace Wall_E.Comandos
         [Aliases("somai", "c#")]
 
         public async Task PauloUBGE(CommandContext ctx) {
-            await ctx.RespondAsync("Programador da Ética, C# da Ética, Somai da Ética");
+            await ctx.RespondAsync("Programador da Ética, C# da Ética, Somai da Ética\n\n~~E corno~~");
         }
     }
 

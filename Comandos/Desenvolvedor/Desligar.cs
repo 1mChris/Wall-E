@@ -10,6 +10,7 @@ namespace Wall_E.Comandos.Desenvolvedor
     public class DesligarBOT : BaseCommandModule
     {
         [Command("desligartempo"), RequireRoles(RoleCheckMode.Any, "Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
+        [Aliases("dt")]
 
         public async Task DesligarPorTempo(CommandContext ctx, String tempo = null) {
             DiscordColor cor;
@@ -62,7 +63,7 @@ namespace Wall_E.Comandos.Desenvolvedor
             await ctx.RespondAsync(embed: religado);
         }
 
-        [Command("desligar"), RequireRoles(RoleCheckMode.SpecifiedOnly, "Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
+        [Command("desligar"), RequireRoles(RoleCheckMode.Any, "Administradores", "Diretores Comunitários", "Ajudantes Comunitários")]
 
         public async Task Desligar(CommandContext ctx) {
             await ctx.Client.DisconnectAsync();

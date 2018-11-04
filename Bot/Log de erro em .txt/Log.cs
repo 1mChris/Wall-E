@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using Trace = System.Diagnostics.Trace;
-using Wall_E.Música;
 
-namespace Wall_E.Música
+namespace Wall_E.Bot
 {
 	public static class Log
 	{

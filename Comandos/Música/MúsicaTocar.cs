@@ -124,8 +124,12 @@ namespace Wall_E.Música
 
 					await ctx.RespondAsync($"{ctx.User.Mention} **|** A música: **{Formatter.Sanitize(track.Title)}** " +
 						$"por: **{Formatter.Sanitize(track.Author)}** foi adicionada a playlist.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] A música: \"{Formatter.Sanitize(track.Title)}\" " +
+                        $"por: \"{Formatter.Sanitize(track.Author)}\" foi adicionada a playlist.");
+                    Console.ResetColor();
 
-					await PrepareAsync();
+                    await PrepareAsync();
 
 					player.Enqueue(new MusicItem(track, ctx.Member, ctx.Channel));
 					player.Play();
@@ -147,10 +151,20 @@ namespace Wall_E.Música
 		public async Task SkipAsync(CommandContext ctx) {
 			var player = await _music.GetOrCreatePlayerAsync(ctx.Guild, ctx.Channel);
 
-			await ctx.RespondAsync($"{ctx.User.Mention} **|** A música: **{Formatter.Sanitize(player.NowPlaying.Track.Title)}** " +
-				$"por: **{Formatter.Sanitize(player.NowPlaying.Track.Author)}** foi saltada.");
+            if (ctx.Member != player.NowPlaying.RequestMember) {
+                await ctx.RespondAsync($"{ctx.Member.Mention} só o {player.NowPlaying.RequestMember.Mention} pode pular a música!");
+                return;
+            }
 
-			var result = player.Stop();
+			await ctx.RespondAsync($"{ctx.User.Mention} **|** A música: **{Formatter.Sanitize(player.NowPlaying.Track.Title)}** " +
+				$"por: **{Formatter.Sanitize(player.NowPlaying.Track.Author)}** foi pulada.");
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] A música: \"{Formatter.Sanitize(player.NowPlaying.Track.Title)}\" " +
+                $"por: \"{Formatter.Sanitize(player.NowPlaying.Track.Author)}\" foi pulada.");
+            Console.ResetColor();
+
+            var result = player.Stop();
 		}
 
 		[Command("remove")]
@@ -171,7 +185,10 @@ namespace Wall_E.Música
 
 				case MusicOperationResult.Success:
 					await ctx.RespondAsync($"{ctx.User.Mention} **|** A música: **{Formatter.Sanitize(item.Track.Title)}** por: **{Formatter.Sanitize(item.Track.Author)}** foi removida da playlist.");
-					return;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] A música: \"{Formatter.Sanitize(item.Track.Title)}\" por: \"{Formatter.Sanitize(item.Track.Author)}\" foi removida da playlist.");
+                    Console.ResetColor();
+                    return;
 			}
 		}
 
@@ -188,7 +205,10 @@ namespace Wall_E.Música
 
 				default:
 					await ctx.RespondAsync($"{ctx.User.Mention} **|** A playlist foi embaralhada!");
-					break;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] A playlist foi embaralhada com sucesso.");
+                    Console.ResetColor();
+                    break;
 			}
 		}
 
@@ -218,7 +238,10 @@ namespace Wall_E.Música
 					.AddField("Link:", now.Uri.ToString(), true);
 
 				await ctx.RespondAsync(ctx.User.Mention, embed: builder);
-			}
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] Tocando agora: \"{Formatter.Sanitize(now.Title)}\" por: \"{Formatter.Sanitize(now.Author)}\"");
+                Console.ResetColor();
+            }
 		}
 
 		[Command("queue")]
@@ -275,10 +298,20 @@ namespace Wall_E.Música
 
         public async Task StopAsync(CommandContext ctx) {
             var player = await _music.GetOrCreatePlayerAsync(ctx.Guild, ctx.Channel);
+
+            if (ctx.Member != player.NowPlaying.RequestMember)
+            {
+                await ctx.RespondAsync($"{ctx.Member.Mention} **|** Só o {player.NowPlaying.RequestMember.Mention} pode parar a música!");
+                return;
+            }
+
             player.Stop();
             await player.DestroyPlayerAsync();
 
             await ctx.RespondAsync($"{ctx.User.Mention} **|** A música foi parada.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] A música foi parada.");
+            Console.ResetColor();
         }
         
         [Command("volume")]
@@ -287,14 +320,16 @@ namespace Wall_E.Música
         public async Task VolumeAsync(CommandContext ctx, int volume)
         {
             var player = await _music.GetOrCreatePlayerAsync(ctx.Guild, ctx.Channel);
-            player.SetVolume(volume);
 
-            if (volume > 100) {
-                await ctx.RespondAsync($"{ctx.User.Mention} **|** Volume da música foi definido para: ``{volume.ToString()}``.\n\n**Atenção!, cuidado ao definir um volume muito alto, poderá lhe causar problema de audição.**");
-                
+            if (volume > 150) {
+                await ctx.RespondAsync($"{ctx.User.Mention} **|** O limite do volume é ``150``, defina um volume mais baixo, pois não é possível ultrapassar esse limite.");
             }
             else {
-                await ctx.RespondAsync($"{ctx.User.Mention} **|** Volume da música foi definido para: ``{volume.ToString()}``.");
+                await ctx.RespondAsync($"{ctx.User.Mention} **|** Volume da música foi definido para: ``{volume.ToString()}``.\n\n**Atenção!, cuidado ao ultrapassar o volume ``100``, pois poderá lhe causar problema de audição.**\nPS: O volume máximo é ``150``.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] O volume foi definido para: {volume.ToString()}");
+                Console.ResetColor();
+                player.SetVolume(volume);
             }
         }
     }

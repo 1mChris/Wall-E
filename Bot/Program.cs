@@ -15,7 +15,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
 using Wall_E.Comandos;
 using Wall_E.Música;
 using Wall_E.Bot;
@@ -23,15 +22,6 @@ using Wall_E.Bot;
 namespace Wall_E
 {
     public class Wall_E {
-        [DllImport("kernel32.dll")]
-        static extern IntPtr GetConsoleWindow();
-
-        [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        const int SW_HIDE = 0;
-        const int SW_SHOW = 5;
-
         public static IContainer Services { get; private set; }
 
         public static Wall_E Instance { get; private set; }
@@ -45,12 +35,12 @@ namespace Wall_E
         public InteractivityExtension Interactivity { get; private set; }
 
         public static void Main(string[] args) {
-            IntPtr ptrConsole = GetConsoleWindow();
-            ShowWindow(ptrConsole, SW_HIDE);
-
-            Process.Start("start.lnk");
-
             Console.Title = "Wall-E da Ética online!";
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("[Wall-E] [DSharpPlus] [Discord] Bem-Vindo Luiz!");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("[Wall-E] Versão: v2.1.0");
+            Console.ResetColor();
 
             Instance = new Wall_E();
             Instance.StartAsync().GetAwaiter().GetResult();
@@ -108,11 +98,13 @@ namespace Wall_E
             Discord.Ready += DiscordClient_Ready;
 
             async Task DiscordClient_Ready(ReadyEventArgs e) {
-                await Discord.UpdateStatusAsync(new DiscordActivity("no Discord da UBGE!"));
                 await Log.SendMessageAsync($"**Wall-E da Ética online!**\nLigado às: ``{DateTime.Now}``");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Wall-E] [DSharpPlus] Meu ping é: {Discord.Ping}ms!");
+                Console.ResetColor();
 
                 DiscordChannel Secretaria = Discord.GetChannelAsync(valores.secretaria_openspades_chat).Result;
-                //await Secretaria.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/os irc`` ?\n\nObrigado :grin:");
+                await Secretaria.SendMessageAsync($"<@&{valores.OpenSpades}>, alguém digita: ``/os irc`` ?\n\nObrigado :grin:");
 
                 //DiscordChannel Secretaria = await Discord.GetChannelAsync(valores.secretaria_openspades_chat);
                 //var CN = Discord.GetCommandsNext();
@@ -163,16 +155,33 @@ namespace Wall_E
                 PaginationTimeout = TimeSpan.FromMinutes(3),
                 Timeout = TimeSpan.FromMinutes(3)
             });
+
+            Status(Discord);
         }
 
         public DiscordClient Discord { get; set; }
 
-        public async Task StartAsync() {
-            await Task.Delay(20000);
-            await Discord.ConnectAsync();
+        private async Task Status(DiscordClient discord) {
+            var utils = new Utilidades.Utilidades();
+            var mins = utils.getTime("30s");
+            var ubge = await discord.GetGuildAsync(194925640888221698);
+            var qtd = await ubge.GetAllMembersAsync();
 
-            Application.EnableVisualStyles();
-            Application.Run(new WinFormWall_E());
+            bool minWaiter = false;
+
+            while (!minWaiter) {
+                await discord.UpdateStatusAsync(new DiscordActivity($"no Discord da UBGE! - {qtd.Count} membros!"));
+                utils.Wait(mins);
+                await discord.UpdateStatusAsync(new DiscordActivity($"{discord.GetCommandsNext().RegisteredCommands.Count} comandos!"));
+                utils.Wait(mins);
+                await discord.UpdateStatusAsync(new DiscordActivity($"Meu criador é o @[UBGE] Luiz#8721!"));
+                utils.Wait(mins);
+            }
+        }
+
+        public async Task StartAsync() {
+            await Discord.ConnectAsync();
+            await Task.Delay(-1);
         }
     }
 }

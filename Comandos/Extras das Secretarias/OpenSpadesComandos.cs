@@ -2,9 +2,10 @@
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using System;
+using System.Data;
+using System.Data.SqlServerCe;
 using System.IO;
 using System.Net.Sockets;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Wall_E.Comandos
@@ -102,14 +103,14 @@ namespace Wall_E.Comandos
                             InputLine.Replace("PING :dreamhack.se.quakenet.org", "");
                         }
                         else {
-                            if (InputLine.Contains(":UBGE-ToW!~UBGE-ToW@179.218.243.249 PRIVMSG #servidores.ubge :")) {
-                                await TOW_Chat.SendMessageAsync($"[UBGE-TOW] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-ToW!~UBGE-ToW@179.218.243.249 PRIVMSG #servidores.ubge :", "")}");
+                            if (InputLine.Contains(":UBGE-ToW!~UBGE-ToW@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :")) {
+                                await TOW_Chat.SendMessageAsync($"[UBGE-TOW] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-ToW!~UBGE-ToW@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :", "")}");
                             }
-                            if (InputLine.Contains(":UBGE-Arena!~UBGE-Aren@179.218.243.249 PRIVMSG #servidores.ubge :")) {
-                                await Arena_Chat.SendMessageAsync($"[UBGE-Arena] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-Arena!~UBGE-Aren@179.218.243.249 PRIVMSG #servidores.ubge :", "")}");
+                            if (InputLine.Contains(":UBGE-Arena_!~UBGE-Aren@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :")) {
+                                await Arena_Chat.SendMessageAsync($"[UBGE-Arena] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-Arena_!~UBGE-Aren@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :", "")}");
                             }
-                            if (InputLine.Contains(":UBGE-Semanal!~UBGE-Sema@179.218.243.249 PRIVMSG #servidores.ubge :")) {
-                                await Semanal_Chat.SendMessageAsync($"[UBGE-Semanal] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-Semanal!~UBGE-Sema@179.218.243.249 PRIVMSG #servidores.ubge :", "")}");
+                            if (InputLine.Contains(":UBGE-Semanal!~UBGE-Sema@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :")) {
+                                await Semanal_Chat.SendMessageAsync($"[UBGE-Semanal] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-Semanal!~UBGE-Sema@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :", "")}");
                             }
                         }
 
@@ -151,6 +152,103 @@ namespace Wall_E.Comandos
                 await Secretaria_OpenSpades.SendMessageAsync("[IRC] [Wall-E] Me auto-reiniciei e o erro foi consertado! Os IRC's estão funcionando novamente e em perfeito estado. *(Fatiou, passou, boa 06)*");
                 Console.WriteLine("[IRC] [Wall-E] Me auto-reiniciei e o erro foi consertado! Os IRC's estão funcionando em perfeito estado.");
             }
+        }
+
+        [Command("cadastrartime")]
+        [Aliases("cadastrartimes", "ct")]
+
+        public async Task CadastrarTimeTorneio(CommandContext ctx, string nomedotime = null, [RemainingText] string jogadores = null) {
+            SqlCeConnection Conexao = new SqlCeConnection();
+            Conexao.ConnectionString = @"Data Source = " + Directory.GetCurrentDirectory() + @"\TorneioOS.sdf";
+            Conexao.Open();
+
+            Console.WriteLine($"[Wall-E] Cadastrando time: \"{nomedotime}\" no banco de dados...");
+
+            string query = $"INSERT INTO TabelaTorneio VALUES('{nomedotime}','{jogadores}')";
+
+            SqlCeCommand Comandos = new SqlCeCommand(query, Conexao);
+            Comandos.ExecuteNonQuery();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"[Wall-E] O time: \"{nomedotime}\" foi cadastrado com sucesso no banco de dados.");
+            Console.ResetColor();
+
+            var embed = new DiscordEmbedBuilder();
+            DiscordColor cor;
+            cor = new Utilidades.Utilidades().randomColor();
+            DiscordUser self = ctx.Member;
+            embed.WithColor(new DiscordColor(0x32363c))
+                .WithAuthor($"O cadastramento foi realizado com sucesso! Reveja os dados cadastrados:", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png")
+                .WithDescription($"**Time:** {nomedotime}\n**Jogadores:** {jogadores}")
+                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
+
+            await ctx.RespondAsync(embed: embed);
+
+            Conexao.Dispose();
+        }
+
+        [Command("vertime")]
+        [Aliases("vertimes", "vt")]
+
+        public async Task VerTimesTorneio(CommandContext ctx, string time = null) {
+            SqlCeConnection Conexao = new SqlCeConnection();
+            Conexao.ConnectionString = @"Data Source = " + Directory.GetCurrentDirectory() + @"\TorneioOS.sdf";
+            Conexao.Open();
+
+            Console.WriteLine($"[Wall-E] Pegando informações do banco de dados...");
+
+            string query = "SELECT * FROM TabelaTorneio";
+
+            DataTable Tabela = new DataTable();
+            SqlCeDataAdapter Adaptador = new SqlCeDataAdapter(query, Conexao);
+            Adaptador.Fill(Tabela);
+
+            Console.WriteLine($"[Wall-E] Dados recolhidos com sucesso. Enviando para o Discord...");
+
+            Conexao.Close();
+
+            var embed = new DiscordEmbedBuilder();
+
+            foreach (DataRow dados in Tabela.Rows) {
+                embed.WithColor(new DiscordColor(0x32363c))
+                    .WithAuthor($"Time: {dados["NomeDoTime"].ToString()}", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png")
+                    .WithDescription($"**Jogadores:** {dados["Jogadores"].ToString()}");
+
+                await ctx.RespondAsync(embed: embed);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"[Wall-E] Dados enviados com sucesso para o Discord.");
+            Console.ResetColor();
+        }
+
+        [Command("apagartime"), RequireRoles(RoleCheckMode.Any, "Secretaria de OpenSpades")]
+        [Aliases("apagartimes", "at")]
+
+        public async Task ApagarTimes(CommandContext ctx) {
+            SqlCeConnection Conexao = new SqlCeConnection();
+            Conexao.ConnectionString = @"Data Source = " + Directory.GetCurrentDirectory() + @"\TorneioOS.sdf";
+            Conexao.Open();
+
+            Console.WriteLine($"[Wall-E] Apagando todos os dados no banco de dados...");
+
+            string query = "DELETE FROM TabelaTorneio";
+
+            SqlCeCommand Comandos = new SqlCeCommand(query, Conexao);
+            Comandos.ExecuteNonQuery();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"[Wall-E] Dados apagados com sucesso.");
+            Console.ResetColor();
+
+            var embed = new DiscordEmbedBuilder();
+
+            embed.WithColor(new DiscordColor(0x32363c))
+                   .WithAuthor($"Os dados da Database foram apagados com sucesso.", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png");
+
+            await ctx.RespondAsync(embed: embed);
+
+            Conexao.Dispose();
         }
     }
 }

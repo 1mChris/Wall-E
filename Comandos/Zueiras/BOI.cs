@@ -16,7 +16,6 @@ namespace Wall_E.Comandos
             DiscordUser self = ctx.Member;
 
             embed.WithColor(cor)
-                .WithAuthor(null, null, null)
                 .WithImageUrl("https://i.ytimg.com/vi/ezShTla3Qts/maxresdefault.jpg")
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             await ctx.RespondAsync(embed: embed);

@@ -84,7 +84,10 @@ namespace Wall_E.Música
 
 		async Task Connection_TrackException(TrackExceptionEventArgs e) {
 			await NowPlaying.RequestedChannel.SendMessageAsync($"Houve um problema ao tocar a música: **{Formatter.Sanitize(e.Track.Title)}** por: **{Formatter.Sanitize(e.Track.Author)}**\n\n**Erro:** ```{e.Error}```");
-		}
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] Houve um problema ao tocar a música: \"{Formatter.Sanitize(e.Track.Title)}\" por: \"{Formatter.Sanitize(e.Track.Author)}\"\n\nErro: \"{e.Error}\"");
+            Console.ResetColor();
+        }
 
 		async Task Connection_PlaybackFinished(TrackFinishEventArgs e) {
 			await Task.Delay(500).ConfigureAwait(false);
@@ -107,6 +110,11 @@ namespace Wall_E.Música
                     UltimoMembro = item.RequestMember;
 					await item.RequestedChannel.SendMessageAsync($"{UltimoMembro?.Mention} **|** Tocando agora: **{Formatter.Sanitize(item.Track.Title)}** " +
 						$"por: **{Formatter.Sanitize(item.Track.Author)}**. - Duração: `{FormatTimespan(item.Track.Length)}`");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"[{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second} -03:00] [Lavalink] Tocando agora: \"{Formatter.Sanitize(item.Track.Title)}\" " +
+                        $"por: \"{Formatter.Sanitize(item.Track.Author)}\". - Duração: \"{FormatTimespan(item.Track.Length)}\"");
+                    Console.ResetColor();                        
+
                     Channel = null;
                     UltimoMembro = null;
 

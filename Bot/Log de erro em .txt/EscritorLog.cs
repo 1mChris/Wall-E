@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace Wall_E.Música
+namespace Wall_E.Bot
 {
 	public class FileTraceListenenr : TraceListener
 	{

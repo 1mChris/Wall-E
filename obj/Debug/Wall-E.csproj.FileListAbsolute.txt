@@ -310,4 +310,5 @@ C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\DSharpPlus.WebSocket.WebSocket4Net
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\DSharpPlus.WebSocket.WebSocket4NetCore.xml
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\obj\Debug\Wall-E.csproj.GenerateResource.cache
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\obj\Debug\Wall_E.Properties.Resources.resources
-C:\Users\Luiz\Desktop\Wall-E\Wall-E\obj\Debug\Wall_E.Bot.WinFormWall_E.resources
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\System.Data.SqlServerCe.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\PT\System.Data.SqlServerCe.resources.dll
