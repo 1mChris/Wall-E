@@ -313,3 +313,13 @@ C:\Users\Luiz\Desktop\Wall-E\Wall-E\obj\Debug\Wall_E.Properties.Resources.resour
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\System.Data.SqlServerCe.dll
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\PT\System.Data.SqlServerCe.resources.dll
 C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\DnsClient.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\MongoDB.Bson.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\MongoDB.Driver.Core.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\MongoDB.Driver.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\MySql.Data.dll
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\DnsClient.xml
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\MongoDB.Bson.xml
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\MongoDB.Driver.xml
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\MongoDB.Driver.Core.xml
+C:\Users\Luiz\Desktop\Wall-E\Wall-E\bin\Debug\MySql.Data.xml

@@ -29,11 +29,11 @@ namespace Wall_E.Música
 			configuration = new LavalinkConfiguration {
 				Password = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXJ2aWNlIjoibGF2YWxpbmsifQ.RERpZ_wfrNos5eknOeeQcieaYESPUajoRn2Ts9AWeRw",
 				RestEndpoint = new ConnectionEndpoint {
-					Hostname = "54.207.51.138", //127.0.0.1 ou ubge.ddns.net ou 54.207.51.138
-					Port = 65200
+					Hostname = "ubge.ddns.net", //ubge.ddns.net ou 54.207.51.138
+					Port = 65201
 				},
 				SocketEndpoint = new ConnectionEndpoint {
-					Hostname = "54.207.51.138",
+					Hostname = "ubge.ddns.net",
 					Port = 65201    
 				}
 			};

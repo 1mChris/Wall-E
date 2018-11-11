@@ -49,7 +49,7 @@ namespace Wall_E.Comandos
 
             EmbedJogoExistePessoaDifNull.WithColor(new DiscordColor(0x32363c))
                 .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")
-                .WithDescription($"{ctx.Member.Mention} você já tem esse cargo!")
+                .WithDescription($"{Membro.Mention} você já tem esse cargo!")
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
 
             EmbedGanhouCargoPessoaDifNull.WithColor(new DiscordColor(0x32363c))
@@ -132,7 +132,7 @@ namespace Wall_E.Comandos
                 if (!Membro.Roles.Contains(r)) {
                     embed2.WithColor(new DiscordColor(0x32363c))
                         .WithAuthor("Erro!", null, "https://cdn.discordapp.com/attachments/452508980896333825/468940279068491777/Alert-icon.png")
-                        .WithDescription("Seu cargo já foi removido há muito tempo! Não tenho nada pra remover.")
+                        .WithDescription($"{Membro.Mention} **|** Seu cargo já foi removido há muito tempo! Não tenho nada pra remover.")
                         .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
 
                     await ctx.RespondAsync(embed: embed2);

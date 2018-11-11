@@ -17,7 +17,7 @@
         public const ulong IdBlackDragon = 481976097949614081;
         public const ulong arena_chat = 490664049751883787;
         public const ulong tow_chat = 490664319134990346;
-        public const ulong semanal_chat = 490664230907805716;
+        public const ulong tdm_chat = 509194141331226654;
         public const ulong secretaria_openspades_chat = 366762417708990474;
         public const ulong OpenSpades_MembrodoCla = 465236605909860352;
         public const ulong OpenSpades_AoS = 497113549525483534;
@@ -27,6 +27,10 @@
         public const ulong Luiz_Criador_ID = 322745409074102282;
         public const ulong PauloCanal = 438402141132947456;
         public const ulong Foxhole_Membro_do_Cla = 497117489084235847;
-        public const string Versao = "v2.1.0";
+        public const string Versao = "v2.2.0";
+        public const ulong UBGE = 194925640888221698;
+        public const ulong Comandos_bot = 206808743986462720;
+        public const ulong UBGEBot = 385808847589212160;
+        public const string KeyAPIRankAoS = "EEYaUGqMa6nN9n8Gff10acN6Da3YK2mrOrABG86WKFtP8XfwwcWib9jD2wZF8z8g";
     }
 }

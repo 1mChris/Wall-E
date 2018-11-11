@@ -2,11 +2,14 @@
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using System;
-using System.Data;
-using System.Data.SqlServerCe;
-using System.IO;
-using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Data.SqlServerCe;
+using System.Data;
+using System.IO;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net;
+using static Wall_E.Utilidades.Utilidades;
 
 namespace Wall_E.Comandos
 {
@@ -14,13 +17,6 @@ namespace Wall_E.Comandos
 
     public class OpenSpadesComandosDiscord : BaseCommandModule
     {
-        public static string IP = "irc.quakenet.org";
-        private static int Porta = 6667;
-        private static string Usuario = "USER IRCbot 0 * :IRCbot";
-        private static string Nome = "Wall-E";
-        private static string Canal = "#servidores.ubge";
-        public static bool Conectado;
-
         [Command("desban")]
 
         public async Task DesbanOP(CommandContext ctx) {
@@ -50,162 +46,111 @@ namespace Wall_E.Comandos
             DiscordColor cor;
             cor = new Utilidades.Utilidades().randomColor();
             var embed = new DiscordEmbedBuilder();
+
             embed.WithColor(cor)
                 .WithAuthor("Votação:", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png")
                 .WithDescription(texto)
                 .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
             await ctx.RespondAsync($"<@&{valores.OpenSpades}>, votação abaixo :point_down:");
+
             var msgembed = await ctx.RespondAsync(embed: embed);
             await msgembed.CreateReactionAsync(emojo);
             await msgembed.CreateReactionAsync(emojo2);
         }
 
-        [Command("irc"), RequireRoles(RoleCheckMode.Any, "Diretores Comunitários", "Administradores", "Ajudantes Comunitários", "Secretaria de OpenSpades")]
-
-        public async Task IRC_dos_Servidores(CommandContext ctx) {
-            DiscordChannel TOW_Chat = ctx.Guild.GetChannel(valores.tow_chat);
-            DiscordChannel Arena_Chat = ctx.Guild.GetChannel(valores.arena_chat);
-            DiscordChannel Semanal_Chat = ctx.Guild.GetChannel(valores.semanal_chat);
-            DiscordChannel Secretaria_OpenSpades = ctx.Guild.GetChannel(valores.secretaria_openspades_chat);
-            DiscordChannel Log = ctx.Guild.GetChannel(valores.IdLogWall_E);
-
-            NetworkStream NS;
-            TcpClient IRC;
-            string InputLine;
-            StreamReader Reader;
-            StreamWriter Writer;
-
-            try {
-                Console.WriteLine("[IRC] [UBGE-Servidores] [Wall-E] Logando no IRC...");
-                IRC = new TcpClient(IP, Porta);
-                NS = IRC.GetStream();
-                Reader = new StreamReader(NS);
-                Writer = new StreamWriter(NS);
-                Writer.WriteLine($"NICK {Nome}");
-                Writer.Flush();
-                Writer.WriteLine(Usuario);
-                Console.WriteLine("[IRC] [UBGE-Servidores] [Wall-E] Logado no IRC! Conectando...");
-                Writer.Flush();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"[IRC] [UBGE-Servidores] [Wall-E] [Discord] | A conexão com o servidores: \"TOW, Arena, Semanal\" foi estabelecida com sucesso!");
-                Console.ResetColor();
-                Conectado = true;
-                await Secretaria_OpenSpades.SendMessageAsync($"**[IRC] [UBGE-Servidores] [Wall-E] [Discord]** **|** A conexão com o servidores: ``TOW``, ``Arena``, ``Semanal`` foi estabelecida com sucesso! Chat's sendo enviado no: <#{valores.tow_chat}>, <#{valores.arena_chat}>, <#{valores.semanal_chat}>");
-
-                while (true) {
-                    while ((InputLine = Reader.ReadLine()) != null) {
-                        if (InputLine.Contains("PING :port80a.se.quakenet.org") || InputLine.Contains("PING :port80c.se.quakenet.org") || InputLine.Contains("PING :underworld1.no.quakenet.org") || InputLine.Contains("PING :underworld2.no.quakenet.org") || InputLine.Contains("PING :cymru.us.quakenet.org") || InputLine.Contains("PING :dreamhack.se.quakenet.org")) {
-                            InputLine.Replace("PING :port80a.se.quakenet.org", "");
-                            InputLine.Replace("PING :port80c.se.quakenet.org", "");
-                            InputLine.Replace("PING :underworld1.no.quakenet.org", "");
-                            InputLine.Replace("PING :underworld2.no.quakenet.org", "");
-                            InputLine.Replace("PING :cymru.us.quakenet.org", "");
-                            InputLine.Replace("PING :dreamhack.se.quakenet.org", "");
-                        }
-                        else {
-                            if (InputLine.Contains(":UBGE-ToW!~UBGE-ToW@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :")) {
-                                await TOW_Chat.SendMessageAsync($"[UBGE-TOW] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-ToW!~UBGE-ToW@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :", "")}");
-                            }
-                            if (InputLine.Contains(":UBGE-Arena_!~UBGE-Aren@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :")) {
-                                await Arena_Chat.SendMessageAsync($"[UBGE-Arena] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-Arena_!~UBGE-Aren@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :", "")}");
-                            }
-                            if (InputLine.Contains(":UBGE-Semanal!~UBGE-Sema@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :")) {
-                                await Semanal_Chat.SendMessageAsync($"[UBGE-Semanal] | ``{DateTime.Now}`` [-] {InputLine.Replace(":UBGE-Semanal!~UBGE-Sema@ec2-18-228-191-156.sa-east-1.compute.amazonaws.com PRIVMSG #servidores.ubge :", "")}");
-                            }
-                        }
-
-                        string[] splitInput = InputLine.Split(' ');
-
-                        if (splitInput[0] == "PING") {
-                            string Resposta = splitInput[1];
-                            Writer.WriteLine($"PONG {Resposta}");
-                            Writer.Flush();
-                        }
-                        Conectado = true;
-                        switch (splitInput[1]) { 
-                            case "001":
-                                Writer.WriteLine($"JOIN {Canal}");
-                                Writer.WriteLine("auth Wall-E wall-e2018");
-                                Writer.Flush();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    Writer.Close();
-                    Reader.Close();
-                    IRC.Close();
-                }
-            }
-            catch (Exception ex) {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"[IRC] [UBGE-Servidores] [Wall-E] [Discord] | A conexão com o servidores: \"TOW, Arena, Semanal\" não foi estabelecida com sucesso.\n\nErro: {ex.ToString()}");
-                Conectado = false;
-                Console.ResetColor();
-                await Secretaria_OpenSpades.SendMessageAsync($"**[IRC] [UBGE-Servidores] [Wall-E] [Discord]** **|** A conexão com o servidores: ``TOW``, ``Arena``, ``Semanal`` não foi estabelecida com sucesso.\n\n**Erro:**\n```{ex.ToString()}```");
-                await Log.SendMessageAsync($"**[IRC] [UBGE-Servidores] [Wall-E] [Discord]** **|** A conexão com o servidores: ``TOW``, ``Arena``, ``Semanal`` não foi estabelecida com sucesso.\n\n**Erro:**\n```{ex.ToString()}```");
-                Console.WriteLine("[Wall-E] Reiniciando...");
-                await ctx.Client.DisconnectAsync();
-                await Task.Delay(200);
-                await ctx.Client.ConnectAsync();
-                Console.WriteLine("[Wall-E] Reiniciei.");
-                await Secretaria_OpenSpades.SendMessageAsync("[IRC] [Wall-E] Me auto-reiniciei e o erro foi consertado! Os IRC's estão funcionando novamente e em perfeito estado. *(Fatiou, passou, boa 06)*");
-                Console.WriteLine("[IRC] [Wall-E] Me auto-reiniciei e o erro foi consertado! Os IRC's estão funcionando em perfeito estado.");
-            }
-        }
-
         [Command("cadastrartime")]
         [Aliases("cadastrartimes", "ct")]
 
-        public async Task CadastrarTimeTorneio(CommandContext ctx, string nomedotime = null, [RemainingText] string jogadores = null) {
-            SqlCeConnection Conexao = new SqlCeConnection();
-            Conexao.ConnectionString = @"Data Source = " + Directory.GetCurrentDirectory() + @"\TorneioOS.sdf";
+        public async Task CadastrarTimeTorneio(CommandContext ctx, string NomeDoTime, [RemainingText] string Jogadores) {
+            if (NomeDoTime == null || Jogadores == null) {
+                await ctx.RespondAsync($"{ctx.Member.Mention} **|** Preencha todos os campos!\n\nExemplo: ``/os ct NomeDoTime Jogador1. Jogador2, Jogador3``");
+                return;
+            }
+
+            int ID_Time = -1;
+            bool editar;
+            string query;
+
+            editar = ID_Time == -1 ? false : true;
+
+            //Conexão com a base de dados
+            SqlCeConnection Conexao = new SqlCeConnection($"Data Source = {Utilidades.Utilidades.DB}");
             Conexao.Open();
 
-            Console.WriteLine($"[Wall-E] Cadastrando time: \"{nomedotime}\" no banco de dados...");
+            query = "SELECT MAX(ID_Time) AS maxid FROM TabelaTorneio";
 
-            string query = $"INSERT INTO TabelaTorneio VALUES('{nomedotime}','{jogadores}')";
+            if (!editar) {
+                SqlCeDataAdapter Adaptador = new SqlCeDataAdapter(query, Conexao);
+                DataTable Tabela = new DataTable();
+                Adaptador.Fill(Tabela);
 
-            SqlCeCommand Comandos = new SqlCeCommand(query, Conexao);
-            Comandos.ExecuteNonQuery();
+                //Converte a adiciona +1
+                if (DBNull.Value.Equals(Tabela.Rows[0][0])) {
+                    ID_Time = 0;
+                }
+                else {
+                    ID_Time = Convert.ToInt16(Tabela.Rows[0][0]) + 1;
+                }
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"[Wall-E] O time: \"{nomedotime}\" foi cadastrado com sucesso no banco de dados.");
-            Console.ResetColor();
+                SqlCeCommand Comando = new SqlCeCommand();
+                Comando.Connection = Conexao;
+                
+                //Preenche os campos na DB com os parâmetros que o usuário digitou
+                Comando.Parameters.AddWithValue("@ID_Time", ID_Time);
+                Comando.Parameters.AddWithValue("@NomeDoTime", NomeDoTime);
+                Comando.Parameters.AddWithValue("@Jogadores", Jogadores);
+                Comando.Parameters.AddWithValue("@Hora_Dia", DateTime.Now);
 
-            var embed = new DiscordEmbedBuilder();
-            DiscordColor cor;
-            cor = new Utilidades.Utilidades().randomColor();
-            DiscordUser self = ctx.Member;
-            embed.WithColor(new DiscordColor(0x32363c))
-                .WithAuthor($"O cadastramento foi realizado com sucesso! Reveja os dados cadastrados:", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png")
-                .WithDescription($"**Time:** {nomedotime}\n**Jogadores:** {jogadores}")
-                .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
+                Console.WriteLine($"[Wall-E] [SQLCe] Cadastrando o time: \"{NomeDoTime}\"...");
 
-            await ctx.RespondAsync(embed: embed);
+                Comando.CommandText = "INSERT INTO TabelaTorneio VALUES(@ID_Time, @NomeDoTime, @Jogadores, @Hora_Dia)";
+                Comando.ExecuteNonQuery();
 
-            Conexao.Dispose();
+                Comando.Dispose();
+                Conexao.Dispose();
+
+                //Comando.CommandText = "INSERT INTO TabelaTornio VALUES(" +
+                //    $"'{ID_Time}', " +
+                //    $"'{NomeDoTime}', " +
+                //    $"'{Jogadores}', " +
+                //    $"'{DateTime.Now}')";
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"[Wall-E] [SQLCe] O time: \"{NomeDoTime}\" foi cadastrado com sucesso no banco de dados.");
+                Console.ResetColor();
+
+                //Embed
+                var embed = new DiscordEmbedBuilder();
+                DiscordUser self = ctx.Member;
+
+                embed.WithColor(new DiscordColor(0x32363c))
+                    .WithAuthor($"O cadastramento foi realizado com sucesso! Reveja os dados cadastrados:", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png")
+                    .WithDescription($"**ID do Time:** {ID_Time.ToString()}\n**Time:** {NomeDoTime}\n**Jogadores:** {Jogadores}")
+                    .WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
+
+                await ctx.RespondAsync(embed: embed);
+            }
         }
 
         [Command("vertime")]
         [Aliases("vertimes", "vt")]
 
-        public async Task VerTimesTorneio(CommandContext ctx, string time = null) {
-            SqlCeConnection Conexao = new SqlCeConnection();
-            Conexao.ConnectionString = @"Data Source = " + Directory.GetCurrentDirectory() + @"\TorneioOS.sdf";
+        public async Task VerTimesTorneio(CommandContext ctx) {
+            SqlCeConnection Conexao = new SqlCeConnection($"Data Source = {Utilidades.Utilidades.DB}");
             Conexao.Open();
 
-            Console.WriteLine($"[Wall-E] Pegando informações do banco de dados...");
+            Console.WriteLine($"[Wall-E] [SQLCe] Pegando informações do banco de dados...");
 
             string query = "SELECT * FROM TabelaTorneio";
 
-            DataTable Tabela = new DataTable();
             SqlCeDataAdapter Adaptador = new SqlCeDataAdapter(query, Conexao);
+            DataTable Tabela = new DataTable();
             Adaptador.Fill(Tabela);
 
-            Console.WriteLine($"[Wall-E] Dados recolhidos com sucesso. Enviando para o Discord...");
+            Console.WriteLine($"[Wall-E] [SQLCe] Dados recolhidos com sucesso. Enviando para o Discord...");
 
-            Conexao.Close();
+            Conexao.Dispose();
+            Adaptador.Dispose();
 
             var embed = new DiscordEmbedBuilder();
 
@@ -218,7 +163,7 @@ namespace Wall_E.Comandos
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"[Wall-E] Dados enviados com sucesso para o Discord.");
+            Console.WriteLine($"[Wall-E] [SQLCe] Dados recolhidos com sucesso e foram enviados para o Discord!");
             Console.ResetColor();
         }
 
@@ -226,11 +171,10 @@ namespace Wall_E.Comandos
         [Aliases("apagartimes", "at")]
 
         public async Task ApagarTimes(CommandContext ctx) {
-            SqlCeConnection Conexao = new SqlCeConnection();
-            Conexao.ConnectionString = @"Data Source = " + Directory.GetCurrentDirectory() + @"\TorneioOS.sdf";
+            SqlCeConnection Conexao = new SqlCeConnection($"Data Source = {Utilidades.Utilidades.DB}");
             Conexao.Open();
 
-            Console.WriteLine($"[Wall-E] Apagando todos os dados no banco de dados...");
+            Console.WriteLine($"[Wall-E] [SQLCe] Apagando todos os dados no banco de dados...");
 
             string query = "DELETE FROM TabelaTorneio";
 
@@ -238,17 +182,61 @@ namespace Wall_E.Comandos
             Comandos.ExecuteNonQuery();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"[Wall-E] Dados apagados com sucesso.");
+            Console.WriteLine($"[Wall-E] [SQLCe] Dados apagados com sucesso.");
             Console.ResetColor();
 
             var embed = new DiscordEmbedBuilder();
 
             embed.WithColor(new DiscordColor(0x32363c))
-                   .WithAuthor($"Os dados da Database foram apagados com sucesso.", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png");
+                   .WithAuthor($"Os dados do banco de dados foram apagados com sucesso.", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png");
 
             await ctx.RespondAsync(embed: embed);
 
             Conexao.Dispose();
+            Comandos.Dispose();
+        }
+
+        [Command("rank")]
+
+        public async Task RankUBGEServidores(CommandContext ctx) {
+            await ctx.TriggerTypingAsync();
+
+            string EndPoint = "https://aoslogin.herokuapp.com/api/v1/ranking/players";
+
+            var RequisicaoWeb = WebRequest.CreateHttp(EndPoint);
+            var Embed = new DiscordEmbedBuilder();
+
+            //Como conecta
+            RequisicaoWeb.Method = "GET";
+            RequisicaoWeb.ContentType = "application/json";
+            RequisicaoWeb.Headers.Add("api_key", valores.KeyAPIRankAoS);
+            RequisicaoWeb.Accept = "application/json";
+
+            //Foreach servidores
+            using (Stream S = RequisicaoWeb.GetResponse().GetResponseStream()) {
+                using (StreamReader SR = new StreamReader(S)) {
+                    var Resposta = SR.ReadToEnd();
+                    DiscordUser self = ctx.Member;
+                    int x = 0;
+
+                    //API como um todo
+                    List<Membro> API = JsonConvert.DeserializeObject<List<Membro>>(Resposta);
+
+                    string Builder = "\n";
+
+                    //Foreach jogadores
+                    Embed.WithColor(0x32363c);
+                    foreach (var CARALHO in API) {
+                        double RatioFinal = Math.Round((double)CARALHO.TotalKills / (double)(CARALHO.TotalDeaths == 0 ? 1 : CARALHO.TotalDeaths), 2);
+                        Builder += $"**{++x}º**: {CARALHO.Name.ToString()} ou <@{Convert.ToInt64(CARALHO.DiscordId)}>\n- Kills: {CARALHO.TotalKills.ToString()} | Deaths: {CARALHO.TotalDeaths.ToString()} | Ratio: {RatioFinal.ToString()}\n\n";
+                    }
+                    Embed.WithDescription(Builder);
+                    Embed.WithAuthor("Rank nos servidores de OpenSpades na UBGE:", null, "https://cdn.discordapp.com/attachments/443159405991821323/471879195685814273/images.png");
+                    Embed.WithFooter("Comando requisitado pelo: " + ctx.Member.Username, iconUrl: self.AvatarUrl);
+
+                    await ctx.RespondAsync(embed: Embed);
+                }
+            }
         }
     }
-}
+}           

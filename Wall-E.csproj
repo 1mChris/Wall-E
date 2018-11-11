@@ -79,6 +79,9 @@
     <Reference Include="Autofac, Version=4.9.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.9.0-beta1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.2.0\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
     <Reference Include="DSharpPlus, Version=4.0.0.553, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DSharpPlus.4.0.0-nightly-00553\lib\net46\DSharpPlus.dll</HintPath>
     </Reference>
@@ -153,6 +156,18 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.7.0\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.7.0\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.7.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -182,7 +197,11 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ComponentModel, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
       <Private>True</Private>
@@ -194,6 +213,7 @@
       <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft SQL Server Compact Edition\v4.0\Desktop\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
       <Private>True</Private>
@@ -223,6 +243,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
@@ -278,6 +299,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -296,12 +318,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bot\Config.cs" />
+    <Compile Include="Bot\MongoDB\MangoDB.cs" />
+    <Compile Include="Bot\MongoDB\ServidoresOpenSpades.cs" />
     <Compile Include="Comandos\Desenvolvedor\Cargo_por_cargo.cs" />
     <Compile Include="Comandos\Desenvolvedor\Desligar.cs" />
     <Compile Include="Comandos\Desenvolvedor\IgnorarComandos%28Só esses%29.cs" />
     <Compile Include="Bot\Program.cs" />
     <Compile Include="Comandos\Desenvolvedor\Memes.cs" />
     <Compile Include="Comandos\Desenvolvedor\Ping.cs" />
+    <Compile Include="Comandos\Extras das Secretarias\OpenSpadesComandos.cs" />
     <Compile Include="Comandos\Matemática\Bhaskara.cs" />
     <Compile Include="Comandos\Matemática\Calculadora.cs" />
     <Compile Include="Comandos\Desenvolvedor\AddTageRemoveTagCargos.cs" />
@@ -316,8 +341,10 @@
     <Compile Include="Comandos\Música\MusicPlayer.cs" />
     <Compile Include="Comandos\Música\ServiçoMúsica.cs" />
     <Compile Include="Comandos\Música\PrescisaEstarEmUmCanal.cs" />
+    <Compile Include="Comandos\Ultilidades - UBGE\Dominar.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Grupos.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Help.cs" />
+    <Compile Include="Comandos\Ultilidades - UBGE\ServidoresUBGE.cs" />
     <Compile Include="Comandos\Zueiras\NúmeroAleatório.cs" />
     <Compile Include="Comandos\Zueiras\Bot_se_passa_por_pessoa.cs" />
     <Compile Include="Comandos\Desenvolvedor\ServerInfo.cs" />
@@ -341,7 +368,6 @@
     <Compile Include="Comandos\Staff - UBGE\Conselho.cs" />
     <Compile Include="Comandos\Desenvolvedor\Criador.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Denúncia.cs" />
-    <Compile Include="Comandos\Extras das Secretarias\OpenSpadesComandos.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Discords.cs" />
     <Compile Include="Comandos\Ultilidades - UBGE\Divsul.cs" />
     <Compile Include="Comandos\Staff - UBGE\Doar.cs" />
@@ -377,9 +403,6 @@
     <None Include="Scripts\jquery-3.3.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="version.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Wall-ELogo.ico" />
     <Content Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
